@@ -10,7 +10,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -43,5 +46,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public String FetchSomeData(){
+        String result = null;
+
+        try {
+            URL url = new URL("https://fr.wikipedia.org/wiki/Wiki");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.connect();
+
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStreamReader inputStreamReader = new InputStreamReader(conn.getInputStream());
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                result = reader.toString();
+            }else  {
+                result = "error";
+            }
+
+        } catch (Exception  e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
