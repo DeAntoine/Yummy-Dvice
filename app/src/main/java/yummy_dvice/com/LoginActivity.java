@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final Button testButton = findViewById(R.id.buttonTest);
+        final Button signUpButton = findViewById(R.id.signup);
 
 
 
@@ -52,6 +53,19 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent map = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(map);
+                finish();
+
+            }
+        });
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
