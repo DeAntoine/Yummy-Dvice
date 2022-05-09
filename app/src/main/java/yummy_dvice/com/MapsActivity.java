@@ -1,9 +1,12 @@
 package yummy_dvice.com;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpResponse;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpStatus;
@@ -38,6 +42,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -60,7 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue(context);
-                String url ="https://www.lemonde.fr/rss/une.xml";
+                String url = "https://www.lemonde.fr/rss/une.xml";
 
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -68,8 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             @Override
                             public void onResponse(String response) {
                                 // Display the first 500 characters of the response string.
-                                Log.e("log fetch" , response);
-                                textView.setText("Response is: "+ response.substring(0,500));
+                                textView.setText("Response is: " + response.substring(0, 500));
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -104,6 +108,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
 
         LatLng apizza = new LatLng(45.512045, -122.613173); //45.512045, -122.613173
         LatLng por_que_no = new LatLng(45.512034, -122.614625); //45.512034, -122.614625
