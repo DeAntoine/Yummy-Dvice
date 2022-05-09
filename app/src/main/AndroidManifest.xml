@@ -21,7 +21,7 @@
             android:name=".ReviewActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInPage2Activity"
+            android:name=".home"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
