@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -53,7 +42,7 @@
                 app:layout_column="0"
                 app:layout_gravity="center"
                 app:layout_row="0"
-                app:srcCompat="@tools:sample/avatars"
+                android:src="@drawable/yummy"
                 tools:layout_editor_absoluteX="0dp" />
 
             <ImageView
@@ -63,7 +52,7 @@
                 app:layout_column="0"
                 app:layout_gravity="center"
                 app:layout_row="1"
-                app:srcCompat="@tools:sample/avatars"
+                android:src="@drawable/yummy"
                 tools:layout_editor_absoluteX="0dp" />
 
 
@@ -123,24 +112,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:="5dp"
-            android:id="@+id/imageButton_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageButton
-            android:id="@+id/imageButton_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
 
         <ImageButton
             android:id="@+id/imageButton_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            app:srcCompat="@drawable/tapas" />
 
     </LinearLayout>
 
