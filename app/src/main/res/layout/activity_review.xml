@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="147dp"
+        android:layout_height="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/yummy" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView_nom"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                app:layout_column="0"
+                app:layout_row="0"
+                app:srcCompat="@tools:sample/avatars"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <ImageView
+                android:id="@+id/imageView_nom2"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                app:layout_column="0"
+                app:layout_row="1"
+                app:srcCompat="@tools:sample/avatars"
+                tools:layout_editor_absoluteX="0dp" />
+
+
+            <androidx.gridlayout.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_column="1"
+                app:layout_row="0">
+
+                <TextView
+                    android:id="@+id/id_nom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Benjamin LEROY"
+                    app:layout_column="0"
+                    app:layout_row="0"
+                    tools:layout_editor_absoluteX="206dp"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <TextView
+                    android:id="@+id/textView5_nom"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="Avis : blablablablablablablablablabla"
+                    app:layout_column="0"
+                    app:layout_row="1" />
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_column="0"
+                    app:layout_row="2">
+
+                    <CheckBox
+                        android:id="@+id/checkBox1_nom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_column="0"
+                        app:layout_row="0" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox2_nom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_column="1"
+                        app:layout_row="0" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox3_nom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_column="2"
+                        app:layout_row="0" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox4_nom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_column="3"
+                        app:layout_row="0" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox5_nom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_column="4"
+                        app:layout_row="0" />
+
+                </androidx.gridlayout.widget.GridLayout>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+        </androidx.gridlayout.widget.GridLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="411dp"
+        android:layout_height="50dp"
+        android:background="#69C1CE"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="780dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="82dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton_1"
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="82dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton_2"
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="82dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton_3"
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="360dp"
+        android:layout_height="92dp"
+        android:background="#CAE5E9"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="162dp"
+        android:layout_height="116dp"
+        app:srcCompat="@drawable/calamar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="108dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="GOOD COUSCOUS"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/tableLayout" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:text="Description : blablablablablablablablablabla"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/checkBox1"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/checkBox2"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/checkBox3"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/checkBox4"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
