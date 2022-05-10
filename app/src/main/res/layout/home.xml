@@ -5,8 +5,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
-
+    android:paddingTop="?attr/actionBarSize"
+    tools:context=".home">
 
 
     <ImageView
@@ -26,30 +26,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:queryHint="Search what you want"/>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+
+        android:numColumns="2"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
-
-        <androidx.gridlayout.widget.GridLayout
-            android:layout_width="365dp"
-            android:layout_height="400dp">
-
-        </androidx.gridlayout.widget.GridLayout>
-
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.12"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_height="0dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -63,5 +56,17 @@
         app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/menu_bottom_nav" />
+
+    <Button
+        android:id="@+id/buttonMap"
+        android:layout_width="55dp"
+        android:layout_height="43dp"
+        android:text="Map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bottom_nav"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridView"
+        app:layout_constraintVertical_bias="0.406" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
