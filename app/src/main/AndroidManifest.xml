@@ -18,13 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CreateAccount"
+            android:exported="false" />
+        <activity
+            android:name=".Leave_review"
+            android:exported="false" />
+        <activity
             android:name=".ReviewActivity"
             android:exported="false" />
         <activity
             android:name=".home"
-            android:exported="false" />
-        <activity
-            android:name=".SignInActivity"
             android:exported="false" />
         <activity
             android:name=".TestActivity"

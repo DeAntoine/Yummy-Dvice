@@ -1,179 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ReviewActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView3"
         android:layout_width="147dp"
         android:layout_height="88dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/yummy" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout">
-
-
-        <androidx.gridlayout.widget.GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/imageView_nom"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_column="0"
-                app:layout_gravity="center"
-                app:layout_row="0"
-                android:src="@drawable/yummy"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <ImageView
-                android:id="@+id/imageView_nom2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_column="0"
-                app:layout_gravity="center"
-                app:layout_row="1"
-                android:src="@drawable/yummy"
-                tools:layout_editor_absoluteX="0dp" />
-
-
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="253dp"
-                android:layout_height="wrap_content"
-                app:layout_column="1"
-                app:layout_row="0">
-
-                <TextView
-                    android:id="@+id/id_nom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Benjamin LEROY"
-                    app:layout_column="0"
-                    app:layout_row="0"
-                    tools:layout_editor_absoluteX="206dp"
-                    tools:layout_editor_absoluteY="0dp" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar1"
-                    android:theme="@style/RatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="3.5"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    app:layout_column="0"
-                    app:layout_gravity="center|center_vertical"
-                    app:layout_row="1"
-                    />
-
-                <TextView
-                    android:id="@+id/textView5_nom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Avis : blablablablablablablablablabla"
-                    app:layout_column="0"
-                    app:layout_row="2" />
-
-
-            </androidx.gridlayout.widget.GridLayout>
-
-        </androidx.gridlayout.widget.GridLayout>
-    </ScrollView>
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="411dp"
-        android:layout_height="50dp"
-        android:background="#69C1CE"
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
         android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="147dp"
+            android:layout_height="88dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/grec" />
 
-        <ImageButton
-            android:id="@+id/imageButton_3"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/tapas" />
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="137dp">
+
+
+            <TextView
+                android:id="@+id/id_nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Burger party"
+                app:layout_column="0"
+                app:layout_row="0"
+                tools:layout_editor_absoluteX="206dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <RatingBar
+                android:id="@+id/ratingBar1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="3.5"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:theme="@style/RatingBar"
+                app:layout_column="0"
+                app:layout_gravity="center|center_vertical"
+                app:layout_row="1" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridLayout"
+    <GridView
+        android:id="@+id/reviewGrid"
         android:layout_width="match_parent"
+        android:layout_height="468dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:numColumns="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="12dp" />
+
+    <Button
+        android:id="@+id/buttonLeaveReview"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:background="#94BEDF"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Leave review"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:layout_column="0"
-            app:layout_row="0"
-            app:layout_rowSpan="2"
-            app:srcCompat="@drawable/calamar"
-
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="164dp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="GOOD COUSCOUS"
-            app:layout_column="1"
-            app:layout_constraintEnd_toEndOf="@+id/tableLayout"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/tableLayout"
-            app:layout_gravity="center_horizontal"
-            app:layout_row="0" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:text="Description : blablablablablablablablablabla"
-            app:layout_column="1"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_row="1" />
-
-
-    </androidx.gridlayout.widget.GridLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.814" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
