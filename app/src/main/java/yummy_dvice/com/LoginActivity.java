@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent map = new Intent(getApplicationContext(), SignInActivity.class);
+                Intent map = new Intent(getApplicationContext(), CreateAccount.class);
                 startActivity(map);
                 finish();
 

@@ -41,9 +41,8 @@ public class home extends AppCompatActivity {
 
         binding = HomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //setContentView(R.layout.home);
 
-        // get restaurant name and image
+        // get restaurant name and image, replace this by request to server
         String[] flowerName = {"Rose","Lotus","Lily","Jasmine",
                 "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation"};
         int[] flowerImages = {R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
@@ -56,6 +55,15 @@ public class home extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Toast.makeText(home.this,"You Clicked on "+ flowerName[position],Toast.LENGTH_SHORT).show();
+
+                String restaurantName = "the restau";
+                String restaurantID = "the id";
+
+                Intent restaurants = new Intent(getApplicationContext(), ReviewActivity.class);
+                restaurants.putExtra("restaurantName", restaurantName);
+                restaurants.putExtra("restaurantId", restaurantID);
+                startActivity(restaurants);
+                finish();
             }
         });
 
