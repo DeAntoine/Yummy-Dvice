@@ -2,5 +2,7 @@ package yummy_dvice.com;
 
 public class Reqs {
 
-    public static String getReviews = "select * from Business where name = ?n";
+    public static String awsEndPoint = "";
+
+    public static String verifiyUsernamePassword = awsEndPoint + "verifiyUsernamePassword?mdp=?pw&user=?u";
 }

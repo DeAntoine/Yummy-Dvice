@@ -1,5 +1,7 @@
 package yummy_dvice.com;
 
+import static yummy_dvice.com.Reqs.verifiyUsernamePassword;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -101,9 +103,19 @@ public class LoginActivity extends AppCompatActivity {
      */
 
     public String checkLogInBd(String log , String mdp){
+
+        /*RequestTool req = new RequestTool(verifiyUsernamePassword.replace("?pw", mdp).replace("?u", log), this);
+
+        if (req.getRep() == "ok") {
+
+            return "ok";
+        }*/
+
+        /*
         if (log.equals("yummy") && mdp.equals("dvice") ) {
             return "ok";
-        }
+        }*/
+
         return "wrong Log/Pass";
     }
 

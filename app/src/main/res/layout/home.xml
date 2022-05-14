@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize"
+    android:paddingTop="10dp"
     tools:context=".home">
 
 
@@ -13,36 +13,40 @@
         android:id="@+id/imageView"
         android:layout_width="147dp"
         android:layout_height="88dp"
+
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:foregroundGravity="center_horizontal"
         app:srcCompat="@drawable/yummy" />
 
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="100dp"
+        android:queryHint="Search what you want"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.327"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="MissingConstraints"
-        android:queryHint="Search what you want"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="150dp"
         android:layout_marginRight="12dp"
 
+        android:layout_marginBottom="24dp"
         android:numColumns="2"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintVertical_bias="0.12"
-        tools:layout_editor_absoluteX="0dp"
-        android:layout_height="0dp"/>
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
@@ -68,5 +72,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridView"
         app:layout_constraintVertical_bias="0.406" />
+
+    <androidx.leanback.widget.HorizontalGridView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridView"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:layout_editor_absoluteX="23dp"
+        android:id="@+id/cuisineGrid">
+
+
+    </androidx.leanback.widget.HorizontalGridView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
