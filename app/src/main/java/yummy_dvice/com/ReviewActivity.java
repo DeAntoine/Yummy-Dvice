@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import yummy_dvice.com.databinding.ActivityReviewBinding;
-import yummy_dvice.com.databinding.HomeBinding;
+import yummy_dvice.com.databinding.Home2Binding;
 
 public class ReviewActivity extends AppCompatActivity {
 
