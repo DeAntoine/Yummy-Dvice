@@ -10,12 +10,14 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.gridlayout.widget.GridLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,8 +42,24 @@ public class home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getSupportActionBar().hide();
+
         binding = HomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        /*String[] items = new String[] {"One", "Two", "Three"};
+
+        for (int i=0; i<2; i++){
+
+            Spinner spin = new Spinner(getApplicationContext());
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spin.setAdapter(adapter);
+            defilement.addView(spin);
+
+        }*/
 
         // get restaurant name and image, replace this by request to server
         String[] flowerName = {"Rose","Lotus","Lily","Jasmine",
@@ -66,6 +85,13 @@ public class home extends AppCompatActivity {
                 finish();
             }
         });
+
+        // cuisine types
+        DisplayCuisine dc = new DisplayCuisine(home.this,flowerName,flowerImages);
+
+        binding.cuisineGrid.setAdapter(dc);
+
+        //binding.scrollCuisine.setAdapter(gridAdapter);
 
         // search bar
         SearchView sv = findViewById(R.id.searchView);

@@ -45,7 +45,7 @@ public class GridAdapter extends BaseAdapter {
 
        if (convertView == null){
 
-           convertView = inflater.inflate(R.layout.grid_item,null);
+           convertView = inflater.inflate(R.layout.display_one_restaurant,null);
 
        }
 

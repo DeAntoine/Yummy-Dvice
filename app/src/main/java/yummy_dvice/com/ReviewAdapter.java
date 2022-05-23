@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class ReviewAdapter extends BaseAdapter {
 
     Context context;
@@ -52,7 +50,7 @@ public class ReviewAdapter extends BaseAdapter {
 
         if (convertView == null){
 
-            convertView = inflater.inflate(R.layout.display_reviews,null);
+            convertView = inflater.inflate(R.layout.display_one_review,null);
 
         }
 
