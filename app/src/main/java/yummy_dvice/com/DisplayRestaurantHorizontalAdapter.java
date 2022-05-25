@@ -1,25 +1,18 @@
 package yummy_dvice.com;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.leanback.widget.OnActionClickedListener;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import yummy_dvice.com.R;
 
-
-public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHolder> {
+public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<DisplayRestaurantHorizontalAdapter.MyViewHolder> {
 
     Context context;
     String[] flowerName;
@@ -27,7 +20,7 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
     LayoutInflater inflater;
 
-    public DisplayCuisine(Context context, String[] flowerName, int[] image) {
+    public DisplayRestaurantHorizontalAdapter(Context context, String[] flowerName, int[] image) {
         this.context = context;
         this.flowerName = flowerName;
         this.image = image;
@@ -49,19 +42,6 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
         holder.getImage().setImageResource(image[position]);
         holder.getText().setText(flowerName[position]);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.d("test", "onClick:" +flowerName[holder.getAdapterPosition()]);
-
-                Intent intent = new Intent(context, DisplayGridRestaurant.class);
-
-                context.startActivity(intent);
-            }
-        });
-
-
     }
 
     @Override
@@ -79,6 +59,16 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
             circle = itemView.findViewById(R.id.cuisine_image);
             txt = itemView.findViewById(R.id.cuisine_name);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Log.d("test", "onClick:" +txt.getText());
+
+                    // go to the restaurant with this name
+                }
+            });
+
         }
 
         CircleImageView getImage(){
@@ -90,9 +80,7 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
             return txt;
         }
-
-
-
     }
 }
+
 
