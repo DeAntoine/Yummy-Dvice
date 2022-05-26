@@ -15,11 +15,11 @@ public class ReviewAdapter extends BaseAdapter {
     String[] names;
     String[] reviews;
     int[] image;
-    int[] stars;
+    float[] stars;
 
     LayoutInflater inflater;
 
-    public ReviewAdapter(Context context, String[] names, int[] image, String[] reviews, int[] stars) {
+    public ReviewAdapter(Context context, String[] names, int[] image, String[] reviews, float[] stars) {
         this.context = context;
         this.names = names;
         this.image = image;
@@ -61,7 +61,7 @@ public class ReviewAdapter extends BaseAdapter {
 
         imageView.setImageResource(image[position]);
         textView.setText(names[position]);
-        starsBar.setRating(Float.valueOf(stars[position]));
+        starsBar.setRating(stars[position]);
         review.setText(reviews[position]);
 
         return convertView;

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<DisplayRestaurantHorizontalAdapter.MyViewHolder> {
@@ -17,13 +19,15 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
     Context context;
     String[] flowerName;
     int[] image;
+    ArrayList<Restaurant> restos;
 
     LayoutInflater inflater;
 
-    public DisplayRestaurantHorizontalAdapter(Context context, String[] flowerName, int[] image) {
+    public DisplayRestaurantHorizontalAdapter(Context context, ArrayList<Restaurant> restos, String[] flowerName, int[] image) {
         this.context = context;
         this.flowerName = flowerName;
         this.image = image;
+        this.restos = restos;
     }
 
     @Override
@@ -42,6 +46,18 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
         holder.getImage().setImageResource(image[position]);
         holder.getText().setText(flowerName[position]);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d("test", "onClick:" +flowerName[holder.getAdapterPosition()]);
+
+                // go to the restaurant with this name
+                //launch intent with the restaurant, do request to get the reviews
+
+            }
+        });
+
     }
 
     @Override
@@ -58,16 +74,6 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
             super(itemView);
             circle = itemView.findViewById(R.id.cuisine_image);
             txt = itemView.findViewById(R.id.cuisine_name);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Log.d("test", "onClick:" +txt.getText());
-
-                    // go to the restaurant with this name
-                }
-            });
 
         }
 

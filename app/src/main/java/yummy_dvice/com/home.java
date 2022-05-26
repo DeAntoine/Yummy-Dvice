@@ -35,7 +35,16 @@ import androidx.gridlayout.widget.GridLayout;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import yummy_dvice.com.databinding.Home2Binding;
 
@@ -101,7 +110,7 @@ public class home extends AppCompatActivity {
                 R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
 
         TextView txt = new TextView(getApplicationContext());
-        txt.setText("Tendances");
+        txt.setText("Cuisine types");
         txt.setPadding(15, 0, 0, 0);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         binding.mainScrollView.addView(txt, params);
@@ -110,7 +119,7 @@ public class home extends AppCompatActivity {
         HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
         hgv.setAdapter(dc);
         hgv.setPadding(10, 10, 10, 10);
-        hgv.setRowHeight(100);
+        hgv.setRowHeight(400);
 
 
         binding.mainScrollView.addView(hgv, params);
@@ -122,13 +131,70 @@ public class home extends AppCompatActivity {
 
     void addNewDefile(String categories[], int images[]){
 
+        // get the restaurants with the filter
+        String url = "";
+
+        Log.d("requete", url);
+
+        ArrayList<Restaurant> restos = new ArrayList<>();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("requete","results here");
+                        //ArrayList<Restaurant> restos = new ArrayList<>();
+
+                        for(int i=0; i< response.length();i++){
+
+                            JSONObject line = null;
+                            try {
+                                line = response.getJSONObject(String.valueOf(i));
+
+                                Restaurant r = new Restaurant(
+                                        line.getString("business_id"),
+                                        line.getString("name"),
+                                        line.getString("address"),
+                                        line.getString("city"),
+                                        line.getString("state"),
+                                        line.getString("postal_code"),
+                                        line.getDouble("latitude"),
+                                        line.getDouble("longitude"),
+                                        (float)line.getDouble("stars")
+                                );
+
+                                restos.add(r);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+
+                        Log.d("requete",error.toString());
+                        Toast.makeText(getApplicationContext(),"Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
+
         TextView txt = new TextView(getApplicationContext());
         txt.setText("Tendances");
         txt.setPadding(15, 0, 0, 0);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         binding.mainScrollView.addView(txt, params);
 
-        DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this,categories,images);
+        DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos, categories, images);
 
         HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
         //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
