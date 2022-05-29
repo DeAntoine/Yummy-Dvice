@@ -27,7 +27,6 @@ public class TestActivity extends AppCompatActivity {
 
     private  String testUrl ="https://www.lemonde.fr/rss/une.xml"; // token RFFD
     private  String testUrl2 ="https://www.lemonde.fr/jeux-video/rss_full.xml";
-    RequestTool req;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

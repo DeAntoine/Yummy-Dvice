@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".searchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayGridRestaurant"
+            android:exported="false" />
         <activity
             android:name=".CreateAccount"
             android:exported="false" />

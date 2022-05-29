@@ -9,56 +9,47 @@
     tools:context=".home">
 
 
+    <ScrollView
+
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+
+        <LinearLayout
+            android:id="@+id/mainScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="147dp"
         android:layout_height="88dp"
 
         android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:foregroundGravity="center_horizontal"
-        app:srcCompat="@drawable/yummy" />
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="350dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="100dp"
-        android:queryHint="Search what you want"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.327"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="12dp"
-
-        android:layout_marginBottom="24dp"
-        android:numColumns="2"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.12"
-        tools:layout_editor_absoluteX="0dp" />
+        app:srcCompat="@drawable/yummy" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="233dp"
         android:layout_height="71dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/menu_bottom_nav" />
 
     <Button
@@ -69,24 +60,59 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bottom_nav"
         app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerMilieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerDroit"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/spinnerGauche"
+        app:layout_constraintTop_toBottomOf="@+id/searchHome"
+        app:layout_constraintVertical_bias="0.269" />
+
+    <Spinner
+        android:id="@+id/spinnerGauche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerMilieu"
+        app:layout_constraintHorizontal_bias="0.5"
+
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridView"
-        app:layout_constraintVertical_bias="0.406" />
+        app:layout_constraintTop_toBottomOf="@+id/searchHome"
+        app:layout_constraintVertical_bias="0.269" />
 
-    <androidx.leanback.widget.HorizontalGridView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/gridView"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:layout_editor_absoluteX="23dp"
-        android:id="@+id/cuisineGrid">
+    <Spinner
+        android:id="@+id/spinnerDroit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/spinnerMilieu"
+        app:layout_constraintTop_toBottomOf="@+id/searchHome"
+        app:layout_constraintVertical_bias="0.269" />
 
-
-    </androidx.leanback.widget.HorizontalGridView>
+    <Button
+        android:id="@+id/searchHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
