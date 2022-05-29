@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import yummy_dvice.com.databinding.ActivityReviewBinding;
-import yummy_dvice.com.databinding.Home2Binding;
+import yummy_dvice.com.databinding.HomeBinding;
 
 public class ReviewActivity extends AppCompatActivity {
 

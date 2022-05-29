@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".searchActivity"
+            android:exported="false" />
+        <activity
             android:name=".DisplayGridRestaurant"
             android:exported="false" />
         <activity

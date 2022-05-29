@@ -65,12 +65,17 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(context, DisplayGridRestaurant.class);
+                intent.putExtra("filters", flowerName[holder.getAdapterPosition()]);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                /*
                 DBHandler db = DBHandler.getInstance(context);
 
                 db.emptyTable();
 
                 // perform the request to get the corresponding restaurants
-                RequestQueue queue = MySingleton.getInstance(context).getRequestQueue();
+
 
                 Toast.makeText(context, flowerName[holder.getAdapterPosition()], Toast.LENGTH_SHORT).show();
 
@@ -138,7 +143,7 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
                 MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
 
-
+            */
             }
         });
 

@@ -46,21 +46,25 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import yummy_dvice.com.databinding.Home2Binding;
+import yummy_dvice.com.databinding.HomeBinding;
 
 
 public class home extends AppCompatActivity {
 
-    Home2Binding binding;
+    HomeBinding binding;
+    Button but;
+    ArrayList<String> filters;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        filters = new ArrayList<>();
+
         getSupportActionBar().hide();
 
-        binding = Home2Binding.inflate(getLayoutInflater());
+        binding = HomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // defile categorie de repas
@@ -71,8 +75,15 @@ public class home extends AppCompatActivity {
         // spinners
         addSpinners();
 
-        // search bar
-        SearchView sv = findViewById(R.id.searchView);
+        but = findViewById(R.id.searchHome);
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), searchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // navBar
         addNavBar();
@@ -206,13 +217,35 @@ public class home extends AppCompatActivity {
 
     void addSpinners(){
 
-        Spinner spinners[] = {binding.spinner2, binding.spinner3, binding.spinner4};
+        Spinner spinners[] = {binding.spinnerGauche, binding.spinnerMilieu, binding.spinnerDroit};
 
-        for (int i = 0; i < spinners.length; i++) {
+        String[] items = new String[]{"Cheap", "Middle", "Expansive"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinners[0].setAdapter(adapter);
 
-            String[] items = new String[]{"One", "Two", "Three"};
+        spinners[0].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+                String selectedItem = adapterView.getItemAtPosition(i).toString();
+
+                filters.add(0, selectedItem);
+
+                Toast.makeText(getApplicationContext(),selectedItem, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        for (int i = 1; i < spinners.length; i++) {
+
+            items = new String[]{"One", "Two", "Three"};
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinners[i].setAdapter(adapter);
         }
