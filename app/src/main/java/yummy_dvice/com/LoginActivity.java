@@ -23,21 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
-        final Button testButton = findViewById(R.id.buttonTest);
         final Button signUpButton = findViewById(R.id.signup);
-
-
-
-
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent map = new Intent(getApplicationContext(), TestActivity.class);
-                startActivity(map);
-                finish();
-
-            }
-        });
 
 
 
