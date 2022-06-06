@@ -54,11 +54,19 @@ public class home extends AppCompatActivity {
     HomeBinding binding;
     Button but;
     ArrayList<String> filters;
-
+    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent user = getIntent();
+        if(user.hasExtra("user")){
+
+            u = (User)user.getSerializableExtra("user");
+
+            Toast.makeText(getApplicationContext(), u.name, Toast.LENGTH_SHORT).show();
+        }
 
         filters = new ArrayList<>();
 

@@ -102,7 +102,7 @@ public class searchActivity extends AppCompatActivity {
                     }
                     Log.d("requete", fil);
                     fil = fil.substring(0, fil.length() - 1);
-                    Toast.makeText(getApplicationContext(), fil, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), fil, Toast.LENGTH_SHORT).show();
                     Log.d("requete", fil);
                     Intent intent = new Intent(getApplicationContext(), DisplayGridRestaurant.class);
                     intent.putExtra("filters", fil);
@@ -143,7 +143,6 @@ public class searchActivity extends AppCompatActivity {
                             intent.putExtra("name", restaurantName);
                             startActivity(intent);
                         }
-
                     }
                 }, new Response.ErrorListener() {
             @Override
