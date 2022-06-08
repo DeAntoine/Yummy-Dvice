@@ -133,7 +133,7 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                // TODO: Handle error
+
 
                                 Log.d("requete",error.toString());
                                 Toast.makeText(context,"Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();

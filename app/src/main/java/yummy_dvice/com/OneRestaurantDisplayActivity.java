@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,25 +12,23 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Maps;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import yummy_dvice.com.databinding.ActivityDisplayRestaurantBinding;
 
-import yummy_dvice.com.databinding.ActivityReviewBinding;
-import yummy_dvice.com.databinding.HomeBinding;
+public class OneRestaurantDisplayActivity extends AppCompatActivity {
 
-public class ReviewActivity extends AppCompatActivity {
-
-    ActivityReviewBinding binding;
+    ActivityDisplayRestaurantBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        binding = ActivityReviewBinding.inflate(getLayoutInflater());
+        binding = ActivityDisplayRestaurantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.buttonLeaveReview.setOnClickListener(new View.OnClickListener() {
@@ -44,12 +41,24 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
 
+        binding.maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         // get the intent
         Intent intent = getIntent();
         Restaurant r = (Restaurant) intent.getSerializableExtra("r");
 
-        binding.ratingBar1.setRating((float)r.stars);
+        binding.stars.setText(String.valueOf(r.stars) + " / 5");
         binding.idNom.setText(r.name);
+        binding.address.setText(String.valueOf(r.address));
+        binding.city.setText(String.valueOf(r.city));
 
         // Request to get review info
 
@@ -92,7 +101,7 @@ public class ReviewActivity extends AppCompatActivity {
                         int[] images = {R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
                         //int[] stars = {1, 2, 3, 4, 5};
 
-                        ReviewAdapter gridAdapter = new ReviewAdapter(ReviewActivity.this,names,images, texts, stars);
+                        ReviewAdapter gridAdapter = new ReviewAdapter(OneRestaurantDisplayActivity.this,names,images, texts, stars);
                         binding.reviewGrid.setAdapter(gridAdapter);
 
                         Log.d("reviews","binding here");

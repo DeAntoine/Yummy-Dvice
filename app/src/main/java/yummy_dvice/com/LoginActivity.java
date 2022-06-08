@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             msg =  "ok";
 
             Intent intent = new Intent(getApplicationContext(), home.class);
+            intent.putExtra("user", new User("Hugo", "Hugo", 4, "aze"));
             startActivity(intent);
         }
 

@@ -17,9 +17,10 @@
 
     <TextView
         android:id="@+id/cuisine_name"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="Rose"
         android:textSize="10sp" />
 

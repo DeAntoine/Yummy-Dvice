@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -21,7 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import yummy_dvice.com.databinding.ActivityDisplayGridRestaurantBinding;
-import yummy_dvice.com.databinding.HomeBinding;
 
 public class DisplayGridRestaurant extends AppCompatActivity {
 
@@ -41,19 +39,23 @@ public class DisplayGridRestaurant extends AppCompatActivity {
         if(intent.hasExtra("name")) {
 
             String name = intent.getStringExtra("name");
+            String title = "Restaurants named like " + name;
+            binding.textViewType.setText(title);
             setReqFromName(name);
         }
 
         if(intent.hasExtra("filters")) {
 
             String name = intent.getStringExtra("filters");
+            String title = "Restaurants from " + name + " categories";
+            binding.textViewType.setText(title);
             setReqFromCategories(name);
         }
     }
 
     public void setReqFromName(String name){
 
-        Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
         Log.d("requete", name);
 
         String url = Reqs.getRestaurantNameAlmost + name
@@ -62,7 +64,6 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                 .replace(")", "");
 
         ArrayList<Restaurant> restos = new ArrayList<>();
-
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -125,16 +126,16 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                         for(int i =0; i<size; i++)
                             images[i] = flowerImages[i];
 
-                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restaurantsName, images);
+                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restos, restaurantsName, images);
 
                         binding.gridView.setAdapter(gridAdapter);
                         binding.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                Toast.makeText(getApplicationContext(), "You Clicked on " + restaurantsName[position], Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "You Clicked on " + restaurantsName[position], Toast.LENGTH_SHORT).show();
 
-                                Intent restaurants = new Intent(getApplicationContext(), ReviewActivity.class);
+                                Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
                                 startActivity(restaurants);
                             }
@@ -145,10 +146,10 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
+
 
                         Log.d("requete", error.toString());
-                        Toast.makeText(getApplicationContext(), "Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -157,7 +158,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
     public void setReqFromCategories(String carac){
 
-        Toast.makeText(getApplicationContext(), carac, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), carac, Toast.LENGTH_LONG).show();
         Log.d("requete", carac);
 
         String url = Reqs.getRestaurantCuisine + carac
@@ -224,16 +225,16 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                 R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec,
                                 R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec};
 
-                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restaurantsName, flowerImages);
+                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restos, restaurantsName, flowerImages);
 
                         binding.gridView.setAdapter(gridAdapter);
                         binding.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                Toast.makeText(getApplicationContext(), "You Clicked on " + restaurantsName[position], Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "You Clicked on " + restaurantsName[position], Toast.LENGTH_SHORT).show();
 
-                                Intent restaurants = new Intent(getApplicationContext(), ReviewActivity.class);
+                                Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
                                 startActivity(restaurants);
                             }
@@ -244,7 +245,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
+
 
                         Log.d("requete", error.toString());
                         Toast.makeText(getApplicationContext(), "Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();

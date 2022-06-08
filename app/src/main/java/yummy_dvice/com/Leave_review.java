@@ -30,7 +30,7 @@ public class Leave_review extends AppCompatActivity {
 
                 button.setVisibility(View.INVISIBLE);
 
-                Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -8,6 +8,8 @@ public class Reqs {
 
     public static String getRestaurantCuisine = awsEndPoint + "getCategories/";
 
+    public static String getCloserRestaurant = awsEndPoint + "getCloserRestaurant?long=?lg&lat=?lt";
+
     public static String getReviewsBusiness = awsEndPoint + "getReviewsFromId/";
 
     public static String getRestaurantNameAlmost = awsEndPoint + "getRestaurantNameAlmost/";

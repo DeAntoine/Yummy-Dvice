@@ -43,14 +43,17 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        //holder.getImage().setImageResource(image[position]);
+        //holder.getText().setText(flowerName[position]);
+
         holder.getImage().setImageResource(image[position]);
-        holder.getText().setText(flowerName[position]);
+        holder.getText().setText(restos.get(position).name);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Log.d("test", "onClick:" +flowerName[holder.getAdapterPosition()]);
+                Log.d("test", "onClick:" +restos.get(holder.getAdapterPosition()).name);
 
                 // go to the restaurant with this name
                 //launch intent with the restaurant, do request to get the reviews
@@ -62,7 +65,7 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
 
     @Override
     public int getItemCount() {
-        return flowerName.length;
+        return restos.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
