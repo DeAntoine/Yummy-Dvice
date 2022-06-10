@@ -96,6 +96,10 @@ public class home extends AppCompatActivity {
 
         //addNewDefile(string[], int[]) to add new horizontal slide
 
+        addNewDefile("Romantic");
+
+        addNewDefile("HasTV");
+
         // spinners
         addSpinners();
 
@@ -186,7 +190,8 @@ public class home extends AppCompatActivity {
                                                             line.getString("postal_code"),
                                                             line.getDouble("latitude"),
                                                             line.getDouble("longitude"),
-                                                            (float) line.getDouble("stars")
+                                                            (float) line.getDouble("stars"),
+                                                            line.getString("image_id")
                                                     );
 
                                                     restos.add(r);
@@ -208,19 +213,19 @@ public class home extends AppCompatActivity {
                                                     "Indian", "Latin American","Vietnamese","Thai", "Barbeque", "Asian Fusion","Japanese", "Italian", "Chinese","Mexican",
                                                     "American (New)", "American (Traditional)"};
 
-                                            int[] images = {R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,
-                                                    R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,
+                                            int[] images = {R.drawable.lebanese,R.drawable.brazilian,R.drawable.cuban,R.drawable.african,R.drawable.irish,
+                                                    R.drawable.hawaiien,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,
                                                     R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,
                                                     R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,
                                                     R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
 
-                                            DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos, categories, images);
+                                            DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos);
 
                                             HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
                                             //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                             hgv.setAdapter(dc);
                                             hgv.setPadding(10, 10, 10, 10);
-                                            hgv.setRowHeight(130);
+                                            hgv.setRowHeight(150);
                                             binding.mainScrollView.addView(hgv, params);
                                         }
                             }, new Response.ErrorListener() {
@@ -249,8 +254,11 @@ public class home extends AppCompatActivity {
                 "Spanish", "Cajun/Creole","French", "Ramen", "Canadian (New)","Halal", "Greek","Caribbean","Korean",
                 "Indian", "Latin American","Vietnamese","Thai", "Barbeque", "Asian Fusion","Japanese", "Italian", "Chinese","Mexican",
                 "American (New)", "American (Traditional)"};
-        int[] images = {R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,
-                R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,
+
+
+
+        int[] images = {R.drawable.lebanese,R.drawable.brazilian,R.drawable.cuban,R.drawable.african,R.drawable.irish,
+                R.drawable.hawaiien,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,
                 R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,
                 R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,
                 R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
@@ -265,8 +273,8 @@ public class home extends AppCompatActivity {
         DisplayCuisine dc = new DisplayCuisine(getApplicationContext(),cuisineTypes,images);
         HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
         hgv.setAdapter(dc);
-        hgv.setPadding(10, 10, 10, 10);
-        hgv.setRowHeight(100);
+        hgv.setPadding(1, 1, 1, 1);
+        hgv.setRowHeight(150);
 
 
         binding.mainScrollView.addView(hgv, params);
@@ -276,10 +284,10 @@ public class home extends AppCompatActivity {
 
     }
 
-    void addNewDefile(String categories[], int images[]){
+    void addNewDefile(String cat){
 
         // get the restaurants with the filter
-        String url = "";
+        String url = Reqs.getCategories + cat;
 
         Log.d("requete", url);
 
@@ -309,7 +317,8 @@ public class home extends AppCompatActivity {
                                         line.getString("postal_code"),
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
-                                        (float)line.getDouble("stars")
+                                        (float) line.getDouble("stars"),
+                                        line.getString("image_id")
                                 );
 
                                 restos.add(r);
@@ -317,6 +326,25 @@ public class home extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+
+                        TextView txt = new TextView(getApplicationContext());
+                        if(cat.equals("HasTV")){
+                            txt.setText("Pour ne pas louper un seul match");
+                        }else
+                            txt.setText(cat);
+                        txt.setTextSize(20);
+                        txt.setPadding(15, 0, 0, 0);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        binding.mainScrollView.addView(txt, params);
+
+                        DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos);
+
+                        HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
+                        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        hgv.setAdapter(dc);
+                        hgv.setPadding(1, 1, 1, 1);
+                        hgv.setRowHeight(150);
+                        binding.mainScrollView.addView(hgv, params);
 
 
                     }
@@ -334,22 +362,6 @@ public class home extends AppCompatActivity {
                 });
 
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-
-
-        TextView txt = new TextView(getApplicationContext());
-        txt.setText("Tendances");
-        txt.setPadding(15, 0, 0, 0);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        binding.mainScrollView.addView(txt, params);
-
-        DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos, categories, images);
-
-        HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
-        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        hgv.setAdapter(dc);
-        hgv.setPadding(10, 10, 10, 10);
-        hgv.setRowHeight(100);
-        binding.mainScrollView.addView(hgv, params);
     }
 
     void addSpinners(){
@@ -378,7 +390,7 @@ public class home extends AppCompatActivity {
             }
         });
 
-        String[] cities = new String[]{"Cambridge", "Paris", "Bali"};
+        String[] cities = new String[]{"New-York", "Paris", "Bali"};
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cities);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinners[1].setAdapter(adapter);
@@ -405,7 +417,7 @@ public class home extends AppCompatActivity {
 
         for (int i = 2; i < spinners.length; i++) {
 
-            items = new String[]{"One", "Two", "Three"};
+            items = new String[]{"A emporter", "Two", "Three"};
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinners[i].setAdapter(adapter);

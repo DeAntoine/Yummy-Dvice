@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/display_one_category.xml" value="0.375" />
         <entry key="app/src/main/res/layout/display_one_cuisine_type.xml" value="0.165" />
         <entry key="app/src/main/res/layout/display_one_restaurant.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/display_one_restaurant_minimize.xml" value="0.17753623188405798" />
         <entry key="app/src/main/res/layout/display_one_review.xml" value="0.25" />
         <entry key="app/src/main/res/layout/display_reviews.xml" value="0.1766304347826087" />
         <entry key="app/src/main/res/layout/grid_item.xml" value="0.1766304347826087" />

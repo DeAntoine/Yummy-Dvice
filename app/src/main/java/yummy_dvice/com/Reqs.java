@@ -15,4 +15,8 @@ public class Reqs {
     public static String getRestaurantNameAlmost = awsEndPoint + "getRestaurantNameAlmost/";
 
     public static String getRestaurantNameAlmostCount = awsEndPoint + "getCountRestaurantNameAlmost/";
+
+    public static String addUser = awsEndPoint + "addUser/";
+
+    public static String getCategories = awsEndPoint + "getCategories/";
 }

@@ -146,7 +146,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                             line.getString("postal_code"),
                                                             line.getDouble("latitude"),
                                                             line.getDouble("longitude"),
-                                                            (float) line.getDouble("stars")
+                                                            (float) line.getDouble("stars"),
+                                                            line.getString("image_id")
                                                     );
 
                                                     restos.add(r);
@@ -157,8 +158,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                             for (Restaurant r : restos){
 
+
                                                 LatLng l = new LatLng(r.latitude, r.longitude);
                                                 mMap.addMarker(new MarkerOptions().position(l).title(r.name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                                                Log.d("placeMap", r.latitude + "_" + r.longitude);
+                                                Log.d("placeMap", r.name + "_" + l.toString());
                                             }
 
                                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(la, lo),16));

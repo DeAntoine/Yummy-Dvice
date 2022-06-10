@@ -1,12 +1,15 @@
 package yummy_dvice.com;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -59,7 +62,31 @@ public class GridAdapter extends BaseAdapter {
         TextView textView = convertView.findViewById(R.id.item_name);
         TextView stars = convertView.findViewById(R.id.item_stars);
 
-        imageView.setImageResource(image[position]);
+        String image_id = restos.get(position).image_id;
+
+        Log.d("imagess", image_id);
+
+        if (image_id.length() > 10) {
+
+            String addr = "http://93.12.245.177:8000/image?img=";
+
+            String url = restos.get(position).image_id + ".jpg";
+
+            Log.d("imagess", addr + url);
+
+            Picasso.get().load(addr + url).resize(100, 100).into(imageView);
+        }
+
+        else{
+
+            String addr = "http://93.12.245.177:8000/image?img=random"+String.valueOf(position)+".jpg";
+
+            Picasso.get().load(addr).resize(100, 100).into(imageView);
+        }
+
+
+
+        //imageView.setImageResource(image[position]);
         //textView.setText(flowerName[position]);
         textView.setText(restos.get(position).name);
         stars.setText(String.valueOf(restos.get(position).stars));

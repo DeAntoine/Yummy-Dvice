@@ -23,7 +23,6 @@ import yummy_dvice.com.databinding.ActivityDisplayGridRestaurantBinding;
 
 public class DisplayGridRestaurant extends AppCompatActivity {
 
-
     ActivityDisplayGridRestaurantBinding binding;
 
     @Override
@@ -88,7 +87,8 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                         line.getString("postal_code"),
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
-                                        (float) line.getDouble("stars")
+                                        (float) line.getDouble("stars"),
+                                        line.getString("image_id")
                                 );
 
                                 restos.add(r);
@@ -194,7 +194,8 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                         line.getString("postal_code"),
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
-                                        (float) line.getDouble("stars")
+                                        (float) line.getDouble("stars"),
+                                        line.getString("image_id")
                                 );
 
                                 restos.add(r);

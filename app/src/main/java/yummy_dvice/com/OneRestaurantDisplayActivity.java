@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Maps;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +55,28 @@ public class OneRestaurantDisplayActivity extends AppCompatActivity {
         // get the intent
         Intent intent = getIntent();
         Restaurant r = (Restaurant) intent.getSerializableExtra("r");
+
+        String image_id = r.image_id;
+
+        Log.d("imagess", image_id);
+
+        if (image_id.length() > 10) {
+
+            String addr = "http://93.12.245.177:8000/image?img=";
+
+            String url = r.image_id + ".jpg";
+
+            Log.d("imagess", addr + url);
+
+            Picasso.get().load(addr + url).resize(100, 100).into(binding.imageView);
+        }
+
+        else{
+
+            String addr = "http://93.12.245.177:8000/image?img=random1.jpg";
+
+            Picasso.get().load(addr).resize(100, 100).into(binding.imageView);
+        }
 
         binding.stars.setText(String.valueOf(r.stars) + " / 5");
         binding.idNom.setText(r.name);
@@ -98,7 +121,7 @@ public class OneRestaurantDisplayActivity extends AppCompatActivity {
 
                         //String[] names = {"Rose","Lotus","Lily","Jasmine", "Tulip"};
                         //String[] reviews = {"Rose zeferfr","Lotus zefzrf","Lily faerfe","Jasmine fefzefze", "Tulip zfzefef"};
-                        int[] images = {R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
+                        int[] images = {R.drawable.baseline_person_black_36,R.drawable.baseline_person_black_36,R.drawable.baseline_person_black_36,R.drawable.baseline_person_black_36,R.drawable.baseline_person_black_36};
                         //int[] stars = {1, 2, 3, 4, 5};
 
                         ReviewAdapter gridAdapter = new ReviewAdapter(OneRestaurantDisplayActivity.this,names,images, texts, stars);

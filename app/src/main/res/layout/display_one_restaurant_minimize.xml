@@ -7,19 +7,18 @@
     android:padding="5dp"
     android:gravity="center">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cuisine_image"
+    <ImageView
+
+        android:id="@+id/restaurant_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:civ_border_width="0dp"
         app:civ_border_color="#FF000000"/>
 
     <TextView
-        android:id="@+id/cuisine_name"
+        android:id="@+id/restaurant_name"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Rose"
         android:textSize="10sp" />
