@@ -1,8 +1,12 @@
 package yummy_dvice.com;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -36,6 +40,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.gridlayout.widget.GridLayout;
+import androidx.leanback.widget.BaseGridView;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,10 +53,15 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import yummy_dvice.com.databinding.HomeBinding;
@@ -96,9 +106,9 @@ public class home extends AppCompatActivity {
 
         //addNewDefile(string[], int[]) to add new horizontal slide
 
-        addNewDefile("Romantic");
+        //addNewDefile("Romantic");
 
-        addNewDefile("HasTV");
+        //addNewDefile("HasTV");
 
         // spinners
         addSpinners();
@@ -168,10 +178,13 @@ public class home extends AppCompatActivity {
                             Log.d("requete", url);
                             ArrayList<Restaurant> restos = new ArrayList<>();
 
+
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                                         @Override
                                         public void onResponse(JSONObject response) {
+
+                                            Bitmap bms[] = new Bitmap[response.length()];
 
                                             Log.d("requete", "results here");
 
@@ -195,6 +208,7 @@ public class home extends AppCompatActivity {
                                                     );
 
                                                     restos.add(r);
+
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -208,16 +222,6 @@ public class home extends AppCompatActivity {
                                             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                             binding.mainScrollView.addView(txt, params);
 
-                                            String[] categories = { "Lebanese", "Brazilian", "Cuban",  "African", "Irish", "Hawaiian",  "Pakistani", "Taiwanese",
-                                                    "Spanish", "Cajun/Creole","French", "Ramen", "Canadian (New)","Halal", "Greek","Caribbean","Korean",
-                                                    "Indian", "Latin American","Vietnamese","Thai", "Barbeque", "Asian Fusion","Japanese", "Italian", "Chinese","Mexican",
-                                                    "American (New)", "American (Traditional)"};
-
-                                            int[] images = {R.drawable.lebanese,R.drawable.brazilian,R.drawable.cuban,R.drawable.african,R.drawable.irish,
-                                                    R.drawable.hawaiien,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,
-                                                    R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,
-                                                    R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,
-                                                    R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
 
                                             DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos);
 
@@ -225,7 +229,8 @@ public class home extends AppCompatActivity {
                                             //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                             hgv.setAdapter(dc);
                                             hgv.setPadding(10, 10, 10, 10);
-                                            hgv.setRowHeight(150);
+                                            hgv.setRowHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+                                            hgv.setSaveChildrenPolicy(BaseGridView.SAVE_ALL_CHILD);
                                             binding.mainScrollView.addView(hgv, params);
                                         }
                             }, new Response.ErrorListener() {
@@ -266,7 +271,7 @@ public class home extends AppCompatActivity {
         TextView txt = new TextView(getApplicationContext());
         txt.setText("Cuisine types");
         txt.setTextSize(20);
-        txt.setPadding(15, 0, 0, 0);
+        txt.setPadding(15, 15, 15, 15);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         binding.mainScrollView.addView(txt, params);
 
@@ -274,7 +279,7 @@ public class home extends AppCompatActivity {
         HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
         hgv.setAdapter(dc);
         hgv.setPadding(1, 1, 1, 1);
-        hgv.setRowHeight(150);
+        hgv.setRowHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
         binding.mainScrollView.addView(hgv, params);
@@ -333,9 +338,10 @@ public class home extends AppCompatActivity {
                         }else
                             txt.setText(cat);
                         txt.setTextSize(20);
-                        txt.setPadding(15, 0, 0, 0);
+                        txt.setPadding(15, 15, 15, 15);
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         binding.mainScrollView.addView(txt, params);
+
 
                         DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos);
 
@@ -343,7 +349,7 @@ public class home extends AppCompatActivity {
                         //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         hgv.setAdapter(dc);
                         hgv.setPadding(1, 1, 1, 1);
-                        hgv.setRowHeight(150);
+                        hgv.setRowHeight(300);
                         binding.mainScrollView.addView(hgv, params);
 
 
@@ -411,9 +417,6 @@ public class home extends AppCompatActivity {
 
             }
         });
-
-
-
 
         for (int i = 2; i < spinners.length; i++) {
 

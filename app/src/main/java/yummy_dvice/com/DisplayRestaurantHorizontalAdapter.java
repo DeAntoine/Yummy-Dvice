@@ -1,7 +1,10 @@
 package yummy_dvice.com;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,12 +27,12 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
 
     Context context;
     ArrayList<Restaurant> restos;
-
     LayoutInflater inflater;
 
     public DisplayRestaurantHorizontalAdapter(Context context, ArrayList<Restaurant> restos) {
         this.context = context;
         this.restos = restos;
+
     }
 
     @Override
@@ -51,25 +55,28 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
 
         Log.d("imagess", image_id);
 
+        String url;
+        String name = "";
         if (image_id.length() > 10) {
 
             String addr = "http://93.12.245.177:8000/image?img=";
 
-            String url = restos.get(position).image_id + ".jpg";
+            url = addr+ image_id + ".jpg";
+            name = image_id;
 
-            Log.d("imagess", addr + url);
-
-            Picasso.get().load(addr + url).resize(100, 100).into(holder.getImage());
+            //Log.d("imagess", addr + url);
         }
 
         else{
 
-            holder.getImage().setImageResource(R.drawable.grec);
+            url = "http://93.12.245.177:8000/image?img=random"+String.valueOf(2)+".jpg";
+            name = String.valueOf(2)+".jpg";
 
-            String addr = "http://93.12.245.177:8000/image?img=random"+String.valueOf(position)+".jpg";
-
-            Picasso.get().load(addr).resize(100, 100).into(holder.getImage());
         }
+        url = "https://www.imedias.pro/wp-content/themes/bootstrap-basic4-child/images/cours/images_web/tux_png_24.png";
+
+        Picasso.get().load(url).resize(100, 100).into(holder.getImage());
+
 
         //holder.getImage().setImageResource(image[position]);
         holder.getText().setText(restos.get(position).name);

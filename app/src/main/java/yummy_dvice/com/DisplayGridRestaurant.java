@@ -126,7 +126,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                         for(int i =0; i<size; i++)
                             images[i] = flowerImages[i];
 
-                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restos, restaurantsName, images);
+                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restos);
 
                         binding.gridView.setAdapter(gridAdapter);
                         binding.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -226,7 +226,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                 R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec,
                                 R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec, R.drawable.grec};
 
-                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restos, restaurantsName, flowerImages);
+                        GridAdapter gridAdapter = new GridAdapter(getApplicationContext(), restos);
 
                         binding.gridView.setAdapter(gridAdapter);
                         binding.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

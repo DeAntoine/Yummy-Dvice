@@ -18,16 +18,13 @@ import java.util.ArrayList;
 public class GridAdapter extends BaseAdapter {
 
     Context context;
-    String[] flowerName;
-    int[] image;
     ArrayList<Restaurant> restos;
 
     LayoutInflater inflater;
 
-    public GridAdapter(Context context, ArrayList<Restaurant> restos, String[] flowerName, int[] image) {
+    public GridAdapter(Context context, ArrayList<Restaurant> restos) {
         this.context = context;
-        this.flowerName = flowerName;
-        this.image = image;
+
         this.restos = restos;
     }
 
@@ -74,12 +71,13 @@ public class GridAdapter extends BaseAdapter {
 
             Log.d("imagess", addr + url);
 
-            Picasso.get().load(addr + url).resize(100, 100).into(imageView);
+            // .resize(100, 100)
+            Picasso.get().load(addr + url).into(imageView);
         }
 
         else{
 
-            String addr = "http://93.12.245.177:8000/image?img=random"+String.valueOf(position)+".jpg";
+            String addr = "http://93.12.245.177:8000/image?img=random"+String.valueOf(1)+".jpg";
 
             Picasso.get().load(addr).resize(100, 100).into(imageView);
         }
