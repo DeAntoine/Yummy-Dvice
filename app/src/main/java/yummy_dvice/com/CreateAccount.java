@@ -2,6 +2,7 @@ package yummy_dvice.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -61,30 +63,39 @@ public class CreateAccount extends AppCompatActivity {
                     return;
                 }
 
-                String url = Reqs.addUser + "'" + email.getText().toString() + "'"  + ",'"  + pseudo.getText().toString() + "','" + password.getText().toString() + "'";
+                //(user_id, name, password, identifiant, id_new, review_count, average_stars)
+
+                String url = Reqs.addUser + "'" + pseudo.getText().toString() + "'"  + ",'"  + password.getText().toString() + "','" + email.getText().toString() + "'";
 
                 Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
                 Log.d("requete", url);
 
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                StringRequest stringreq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
-                            @Override
-                            public void onResponse(JSONObject response) {
+                    @Override
+                    public void onResponse(String rep) {
 
-                            }
-                        }, new Response.ErrorListener() {
+                        if (rep.equals("ok")){
 
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // TODO: Handle error
+                            Intent intent = new Intent(getApplicationContext(), home.class);
+                            intent.putExtra("user", new User("Hugo", "Hugo", 4, "aze"));
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }, new Response.ErrorListener() {
 
-                                Log.d("requete", error.toString());
-                                //Toast.makeText(getApplicationContext(), "Failed to send datas, try again later", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
 
-                            }
-                        });
-                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+                        Log.d("requete", error.toString());
+                        Toast.makeText(getApplicationContext(), "Failed to create profile", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringreq);
 
             }
         });

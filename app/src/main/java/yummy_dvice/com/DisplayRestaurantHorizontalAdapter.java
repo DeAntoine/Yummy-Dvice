@@ -73,7 +73,7 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
             name = String.valueOf(2)+".jpg";
 
         }
-        url = "https://www.imedias.pro/wp-content/themes/bootstrap-basic4-child/images/cours/images_web/tux_png_24.png";
+        //url = "https://www.imedias.pro/wp-content/themes/bootstrap-basic4-child/images/cours/images_web/tux_png_24.png";
 
         Picasso.get().load(url).resize(100, 100).into(holder.getImage());
 
