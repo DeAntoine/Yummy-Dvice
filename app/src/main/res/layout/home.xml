@@ -48,9 +48,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
-        android:layout_width="233dp"
-        android:layout_height="71dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +60,11 @@
         android:id="@+id/buttonMap"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="88dp"
         android:background="@drawable/outil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bottom_nav"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
