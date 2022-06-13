@@ -17,6 +17,7 @@
         android:isIndicator="false"
         android:numStars="5"
         android:rating="3"
+        android:progressTint="#f6e355"
         android:scaleX="0.8"
         android:scaleY="0.8"
         android:stepSize="1"

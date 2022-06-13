@@ -4,11 +4,23 @@ import static yummy_dvice.com.Reqs.verifiyUsernamePassword;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -19,52 +31,27 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
-        final Button testButton = findViewById(R.id.buttonTest);
         final Button signUpButton = findViewById(R.id.signup);
-
-
-
-
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent map = new Intent(getApplicationContext(), TestActivity.class);
-                startActivity(map);
-                finish();
-
-            }
-        });
-
-
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent map = new Intent(getApplicationContext(), CreateAccount.class);
-                startActivity(map);
+                Intent CreateAccount = new Intent(getApplicationContext(), CreateAccount.class);
+                startActivity(CreateAccount);
                 finish();
 
             }
         });
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String resLogin = checkLog(usernameEditText.getText().toString(),passwordEditText.getText().toString());
+               checkLog(usernameEditText.getText().toString(),passwordEditText.getText().toString());
 
-                if (resLogin.equals("ok")) {
-                    Intent home = new Intent(getApplicationContext(), home.class);
-                    startActivity(home);
-                    finish();
-                }else {
-                    // print resLogin
-                 }
             }
         });
     }
@@ -74,27 +61,36 @@ public class LoginActivity extends AppCompatActivity {
      *
      */
 
-    public String checkLog (String log , String mdp ){
+    public void checkLog (String log , String mdp ){
+
+        String msg = "";
 
         // TODO remove this if in production #OFD (only for dev)
         if (log.equals("") && mdp.equals("") ) {
-            return "ok";
+            msg =  "ok";
+
+            Intent intent = new Intent(getApplicationContext(), home.class);
+            intent.putExtra("user", new User("Hugo", "Hugo", 4, "aze"));
+            startActivity(intent);
         }
 
         if (log.equals("")){
-            return "Login missing";
+            msg =  "Login missing";
         }
-        if (log.length() < 5){
-            return "Login too short";
+        if (log.length() < 2){
+            msg =  "Login too short";
         }
         if (mdp.equals("")){
-            return "Password missing";
+            msg =  "Password missing";
         }
-        if (mdp.length() < 5){
-            return "Password too short";
+        if (mdp.length() < 2){
+            msg =  "Password too short";
         }
 
-        return checkLogInBd(log,mdp);
+        if (msg.equals(""))
+            checkLogInBd(log,mdp);
+        else
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     /*
@@ -102,21 +98,58 @@ public class LoginActivity extends AppCompatActivity {
      *
      */
 
-    public String checkLogInBd(String log , String mdp){
+    public void checkLogInBd(String log , String mdp){
 
-        /*RequestTool req = new RequestTool(verifiyUsernamePassword.replace("?pw", mdp).replace("?u", log), this);
+        String url = verifiyUsernamePassword + log + "," + mdp;
 
-        if (req.getRep() == "ok") {
+        Log.d("requete", url);
 
-            return "ok";
-        }*/
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-        /*
-        if (log.equals("yummy") && mdp.equals("dvice") ) {
-            return "ok";
-        }*/
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-        return "wrong Log/Pass";
+                        if(response.length() == 0){
+
+                            Toast.makeText(getApplicationContext(), "no user found", Toast.LENGTH_SHORT).show();
+                        } else{
+
+                            JSONObject line = null;
+                            try {
+                                line = response.getJSONObject(String.valueOf(0));
+
+                                User u = new User(
+                                        line.getString("user_id"),
+                                        line.getString("name"),
+                                        Integer.valueOf(line.getString("review_count")),
+                                        line.getString("id_new")
+                                );
+
+                                Intent intent = new Intent(getApplicationContext(), home.class);
+
+                                intent.putExtra("user", u);
+
+                                startActivity(intent);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+
+                        Log.d("requete pour login", error.toString());
+                        Toast.makeText(getApplicationContext(), "Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
-
 }

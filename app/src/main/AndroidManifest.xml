@@ -17,7 +17,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
         <activity
             android:name=".searchActivity"
             android:exported="false" />
@@ -31,7 +35,7 @@
             android:name=".Leave_review"
             android:exported="false" />
         <activity
-            android:name=".ReviewActivity"
+            android:name=".OneRestaurantDisplayActivity"
             android:exported="false" />
         <activity
             android:name=".home"
@@ -44,7 +48,6 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,7 +61,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBz4Kvw92r-Mie4qxNGo4xXx-TjF1p3bwU" />
 
         <activity
             android:name=".MapsActivity"

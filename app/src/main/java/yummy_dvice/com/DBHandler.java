@@ -55,6 +55,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "postal_code TEXT,\n" +
                 "latitude FLOAT,\n" +
                 "longitude FLOAT,\n" +
+                "image_id TEXT,\n" +
                 "stars FLOAT)";
 
         // at last we are calling a exec sql
@@ -69,7 +70,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
-    public void addRestaurant(String business_id, String name, String address, String city, String state, String postal_code, Double latitude, Double longitude, Double stars){
+    public void addRestaurant(String business_id, String name, String address, String city, String state, String postal_code, Double latitude, Double longitude, Double stars, String image_id){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -84,6 +85,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("latitude", latitude);
         values.put("longitude", longitude);
         values.put("stars", stars);
+        values.put("image_id", image_id);
 
         // after adding all values we are passing
         // content values to our table.
@@ -111,6 +113,7 @@ public class DBHandler extends SQLiteOpenHelper {
             values.put("latitude", r.latitude);
             values.put("longitude", r.longitude);
             values.put("stars", r.stars);
+            values.put("image_id", r.image_id);
 
             // after adding all values we are passing
             // content values to our table.
@@ -144,7 +147,8 @@ public class DBHandler extends SQLiteOpenHelper {
                         cursorCourses.getString(5),
                         cursorCourses.getDouble(6),
                         cursorCourses.getDouble(7),
-                        cursorCourses.getFloat(8)));
+                        cursorCourses.getFloat(8),
+                        cursorCourses.getString(9)));
             } while (cursorCourses.moveToNext());
             // moving our cursor to next.
         }

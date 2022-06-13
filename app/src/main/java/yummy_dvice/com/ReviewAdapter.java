@@ -56,13 +56,13 @@ public class ReviewAdapter extends BaseAdapter {
 
         ImageView imageView = convertView.findViewById(R.id.user_image);
         TextView textView = convertView.findViewById(R.id.user_name);
-        RatingBar starsBar = convertView.findViewById(R.id.reviewStar);
+        TextView starsBar = convertView.findViewById(R.id.stars);
         TextView review = convertView.findViewById(R.id.reviewText);
 
         imageView.setImageResource(image[position]);
         textView.setText(names[position]);
-        starsBar.setRating(stars[position]);
-        review.setText(reviews[position]);
+        starsBar.setText(String.valueOf(stars[position]) + " / 5");
+        review.setText(reviews[position] );
 
         return convertView;
     }

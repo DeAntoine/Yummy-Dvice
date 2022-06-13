@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,14 +21,17 @@ public class CustomAdapter extends ArrayAdapter<Category> {
     LinearLayout txt;
     Context context;
     ArrayList<String> filters;
+    TextView textV;
+    SearchView sv;
 
-    public CustomAdapter(Context context, ArrayList<Category> cats, LinearLayout txt, ArrayList<String> words) {
+    public CustomAdapter(Context context, ArrayList<Category> cats, LinearLayout txt, ArrayList<String> words, TextView textv, SearchView sv) {
         super(context, 0, cats);
         this.txt = txt;
         this.context = context;
         this.filters = words;
+        this.textV = textv;
+        this.sv = sv;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -52,15 +56,26 @@ public class CustomAdapter extends ArrayAdapter<Category> {
 
                 if(!filters.contains(val)){
 
+                    txt.removeView(textV);
                     filters.add(val);
                     Button but = new Button(context);
                     but.setText(val);
+
+                    sv.setQuery("", false);
 
                     but.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             txt.removeView(view);
                             filters.remove(val);
+
+                            if(filters.isEmpty()){
+
+                                if (txt.getChildCount() == 0){
+
+                                    txt.addView(textV);
+                                }
+                            }
                         }
                     });
 
