@@ -19,4 +19,6 @@ public class Reqs {
     public static String addUser = awsEndPoint + "addUser/";
 
     public static String getCategories = awsEndPoint + "getCategories/";
+
+    public static String getReco = awsEndPoint + "getCategoriesOr/?c";
 }

@@ -69,9 +69,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("locationn", "in map: ");
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        final Button fetchButton = findViewById(R.id.button1);
-        final TextView textView = findViewById(R.id.textView);
         this.context = this;
 
 
