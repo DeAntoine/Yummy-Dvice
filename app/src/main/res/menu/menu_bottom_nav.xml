@@ -14,4 +14,18 @@
         android:title="Profile"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_maps"
+        android:enabled="true"
+        android:icon="@drawable/outil"
+        android:title="Map"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/search"
+        android:title="Search"
+        app:showAsAction="ifRoom" />
+
 </menu>

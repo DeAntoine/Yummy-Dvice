@@ -40,7 +40,7 @@ public class Profile extends AppCompatActivity {
 
     void addNavBar() {
 
-        BottomNavigationView navBar = findViewById(R.id.bottom_navProfile);
+        BottomNavigationView navBar = findViewById(R.id.bottom_nav_profile);
 
         navBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

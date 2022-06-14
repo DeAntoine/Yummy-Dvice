@@ -67,6 +67,7 @@ import java.util.ArrayList;
 import yummy_dvice.com.databinding.HomeBinding;
 
 
+
 public class home extends AppCompatActivity {
 
     HomeBinding binding;
@@ -76,6 +77,7 @@ public class home extends AppCompatActivity {
     BottomNavigationView navBar;
     Double latitude;
     Double longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,9 @@ public class home extends AppCompatActivity {
             u = (User)user.getSerializableExtra("user");
 
             //Toast.makeText(getApplicationContext(), u.name, Toast.LENGTH_SHORT).show();
+        } else {
+
+            u = null;
         }
 
         filters = new ArrayList<>();
@@ -104,39 +109,15 @@ public class home extends AppCompatActivity {
 
         getLocation();
 
-        //addNewDefile(string[], int[]) to add new horizontal slide
-
-        //addNewDefile("Romantic");
+        addNewDefile("Lebanese,French");
 
         //addNewDefile("HasTV");
 
         // spinners
         addSpinners();
 
-        but = findViewById(R.id.searchHome);
-        but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), searchActivity.class);
-                startActivity(intent);
-            }
-        });
-
         // navBar
         addNavBar();
-
-        // Map button
-        Button mapButton = findViewById(R.id.buttonMap);
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent home = new Intent(getApplicationContext(), MapsActivity.class);
-                startActivity(home);
-
-            }
-        });
     }
 
     @Override
@@ -445,6 +426,15 @@ public class home extends AppCompatActivity {
                     startActivityForResult(home, 1);
                     overridePendingTransition(0, 0);
 
+                } else if (id == R.id.action_maps) {
+
+                    Intent home = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(home);
+
+                } else if (id == R.id.action_search) {
+
+                    Intent intent = new Intent(getApplicationContext(), searchActivity.class);
+                    startActivity(intent);
                 }
                 return true;
             }

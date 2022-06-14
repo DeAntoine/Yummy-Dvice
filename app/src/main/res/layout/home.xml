@@ -5,10 +5,10 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
     android:background="#00897B"
     android:backgroundTint="#FFFFFF"
     android:foregroundTint="#FFFFFF"
+    android:paddingTop="10dp"
     tools:context=".home">
 
 
@@ -17,13 +17,16 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="184dp"
 
-        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDroit"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp">
 
 
         <LinearLayout
@@ -36,89 +39,55 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="147dp"
-        android:layout_height="88dp"
+        android:layout_width="114dp"
+        android:layout_height="52dp"
 
-        android:layout_marginTop="5dp"
-        android:foregroundGravity="center_horizontal"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/yummy" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
-        android:layout_width="233dp"
-        android:layout_height="71dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_nav" />
 
-    <Button
-        android:id="@+id/buttonMap"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/outil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bottom_nav"
-        app:layout_constraintHorizontal_bias="0.39"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Spinner
         android:id="@+id/spinnerMilieu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerDroit"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/spinnerGauche"
-        app:layout_constraintTop_toBottomOf="@+id/searchHome"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGauche" />
 
     <Spinner
         android:id="@+id/spinnerGauche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerMilieu"
-        app:layout_constraintHorizontal_bias="0.5"
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchHome"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerDroit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/spinnerMilieu"
-        app:layout_constraintTop_toBottomOf="@+id/searchHome"
-        app:layout_constraintVertical_bias="0.269" />
-
-    <Button
-        android:id="@+id/searchHome"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMilieu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
