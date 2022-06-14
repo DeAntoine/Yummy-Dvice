@@ -6,25 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccount">
 
-    <Button
-        android:id="@+id/login2"
-        android:layout_width="153dp"
-        android:layout_height="49dp"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:enabled="true"
-        android:text="Submit"
-        android:textColor="#FFFFFF"
-        android:visibility="visible"
-        app:backgroundTint="#00897B"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible" />
-
     <EditText
         android:id="@+id/username"
         android:layout_width="336dp"
@@ -83,6 +64,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
         />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/login2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/checked"
+        app:backgroundTint="#E6DFDF"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

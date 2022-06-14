@@ -19,12 +19,10 @@ public class GridAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Restaurant> restos;
-
     LayoutInflater inflater;
 
     public GridAdapter(Context context, ArrayList<Restaurant> restos) {
         this.context = context;
-
         this.restos = restos;
     }
 

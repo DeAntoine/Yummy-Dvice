@@ -21,4 +21,6 @@ public class Reqs {
     public static String getCategories = awsEndPoint + "getCategories/";
 
     public static String getReco = awsEndPoint + "getCategoriesOr/?c";
+
+    public static String addReviews = awsEndPoint + "addReviews/?r";
 }

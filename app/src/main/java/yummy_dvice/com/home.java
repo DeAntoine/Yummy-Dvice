@@ -42,6 +42,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.leanback.widget.BaseGridView;
 import androidx.leanback.widget.HorizontalGridView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -71,6 +72,7 @@ import yummy_dvice.com.databinding.HomeBinding;
 public class home extends AppCompatActivity {
 
     HomeBinding binding;
+
     Button but;
     ArrayList<String> filters;
     User u;
@@ -82,6 +84,10 @@ public class home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         ActivityCompat.requestPermissions(home.this,new String[]{ Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(home.this,new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
@@ -165,8 +171,6 @@ public class home extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
 
-                                            Bitmap bms[] = new Bitmap[response.length()];
-
                                             Log.d("requete", "results here");
 
                                             for (int i = 0; i < response.length(); i++) {
@@ -204,14 +208,19 @@ public class home extends AppCompatActivity {
                                             binding.mainScrollView.addView(txt, params);
 
 
-                                            DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos);
+                                            DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos, u);
 
                                             HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
                                             //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                             hgv.setAdapter(dc);
                                             hgv.setPadding(10, 10, 10, 10);
                                             hgv.setRowHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-                                            hgv.setSaveChildrenPolicy(BaseGridView.SAVE_ALL_CHILD);
+                                            //hgv.setSaveChildrenPolicy(BaseGridView.SAVE_ALL_CHILD);
+
+                                            HorizontalGridView.LayoutManager layoutManager = new LinearLayoutManager(home.this, LinearLayoutManager.HORIZONTAL, false);
+                                            hgv.setLayoutManager(layoutManager);
+                                            hgv.setHasFixedSize(true);
+
                                             binding.mainScrollView.addView(hgv, params);
                                         }
                             }, new Response.ErrorListener() {
@@ -256,11 +265,15 @@ public class home extends AppCompatActivity {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         binding.mainScrollView.addView(txt, params);
 
-        DisplayCuisine dc = new DisplayCuisine(getApplicationContext(),cuisineTypes,images);
+        DisplayCuisine dc = new DisplayCuisine(getApplicationContext(),cuisineTypes,images, u);
         HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
         hgv.setAdapter(dc);
         hgv.setPadding(1, 1, 1, 1);
         hgv.setRowHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        HorizontalGridView.LayoutManager layoutManager = new LinearLayoutManager(home.this, LinearLayoutManager.HORIZONTAL, false);
+        hgv.setLayoutManager(layoutManager);
+        hgv.setHasFixedSize(true);
 
 
         binding.mainScrollView.addView(hgv, params);
@@ -324,13 +337,18 @@ public class home extends AppCompatActivity {
                         binding.mainScrollView.addView(txt, params);
 
 
-                        DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos);
+                        DisplayRestaurantHorizontalAdapter dc = new DisplayRestaurantHorizontalAdapter(home.this, restos, u);
 
                         HorizontalGridView hgv = new HorizontalGridView(getApplicationContext());
                         //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         hgv.setAdapter(dc);
                         hgv.setPadding(1, 1, 1, 1);
                         hgv.setRowHeight(300);
+
+                        HorizontalGridView.LayoutManager layoutManager = new LinearLayoutManager(home.this, LinearLayoutManager.HORIZONTAL, false);
+                        hgv.setLayoutManager(layoutManager);
+                        hgv.setHasFixedSize(true);
+
                         binding.mainScrollView.addView(hgv, params);
 
 

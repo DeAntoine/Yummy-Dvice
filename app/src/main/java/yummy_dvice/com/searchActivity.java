@@ -1,10 +1,12 @@
 package yummy_dvice.com;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -28,15 +32,29 @@ public class searchActivity extends AppCompatActivity {
     Button search;
     ArrayList<String> word;
     String restaurantName;
+    FloatingActionButton retButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
         restaurantName = "";
 
         word = new ArrayList<>();
+
+        retButton = findViewById(R.id.returnButton);
+        retButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         list = findViewById(R.id.listView);
         filters = findViewById(R.id.linearLayout);
@@ -154,4 +172,6 @@ public class searchActivity extends AppCompatActivity {
 
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
+
+
 }

@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +25,8 @@ import yummy_dvice.com.databinding.ActivityDisplayGridRestaurantBinding;
 public class DisplayGridRestaurant extends AppCompatActivity {
 
     ActivityDisplayGridRestaurantBinding binding;
+    FloatingActionButton fab;
+    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,29 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
         binding = ActivityDisplayGridRestaurantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        binding.returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         Log.d("requete", "hheeeerrrre");
 
         Intent intent = getIntent();
+
+        u = null;
+
+        if(intent.hasExtra("user")) {
+
+            u = (User)intent.getSerializableExtra("user");
+
+        }
 
         if(intent.hasExtra("name")) {
 
@@ -137,6 +160,10 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                                 Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
+                                if(u != null){
+
+                                    restaurants.putExtra("user", u);
+                                }
                                 startActivity(restaurants);
                             }
                         });
@@ -237,6 +264,10 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                                 Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
+                                if(u != null){
+
+                                    restaurants.putExtra("user", u);
+                                }
                                 startActivity(restaurants);
                             }
                         });

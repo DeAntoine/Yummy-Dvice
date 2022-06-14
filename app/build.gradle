@@ -45,5 +45,6 @@ dependencies {
     implementation 'androidx.leanback:leanback:1.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
 }
 
