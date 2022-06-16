@@ -15,7 +15,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:text="Rose"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/number"
@@ -24,6 +24,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="Rose"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
 </LinearLayout>

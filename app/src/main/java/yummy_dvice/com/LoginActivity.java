@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,18 +26,25 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    EditText passwordEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        setContentView(R.layout.activity_login);
+
+
+
         EditText usernameEditText = findViewById(R.id.username);
-        EditText passwordEditText = findViewById(R.id.password);
+        passwordEditText = findViewById(R.id.password);
         usernameEditText.setText("hugo.ducly@gmail.com");
         passwordEditText.setText("azertyuiop");
         final Button loginButton = findViewById(R.id.login);
@@ -47,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent CreateAccount = new Intent(getApplicationContext(), CreateAccount.class);
                 startActivity(CreateAccount);
-                finish();
 
             }
         });
@@ -106,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void checkLogInBd(String log , String mdp){
 
-        String url = verifiyUsernamePassword + log + "," + mdp;
+        String url = verifiyUsernamePassword + log;
 
         Log.d("requete", url);
 
@@ -118,25 +125,40 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(response.length() == 0){
 
-                            Toast.makeText(getApplicationContext(), "no user found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "No user found", Toast.LENGTH_LONG).show();
                         } else{
+
 
                             JSONObject line = null;
                             try {
                                 line = response.getJSONObject(String.valueOf(0));
 
-                                User u = new User(
-                                        line.getString("user_id"),
-                                        line.getString("name"),
-                                        Integer.valueOf(line.getString("review_count")),
-                                        line.getString("id_new")
-                                );
+                                String pwd = line.getString("password");
 
-                                Intent intent = new Intent(getApplicationContext(), home.class);
+                                if (pwd.equals(mdp)){
 
-                                intent.putExtra("user", u);
+                                    User u = new User(
+                                            line.getString("user_id"),
+                                            line.getString("name"),
+                                            Integer.parseInt(line.getString("review_count")),
+                                            line.getString("id_new")
+                                    );
 
-                                startActivity(intent);
+                                    Intent intent = new Intent(getApplicationContext(), home.class);
+
+                                    intent.putExtra("user", u);
+
+                                    startActivity(intent);
+
+                                    finish();
+
+                                } else {
+
+                                    passwordEditText.setHint("Wrong password");
+                                    Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
+                                }
+
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

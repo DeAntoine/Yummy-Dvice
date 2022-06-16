@@ -3,6 +3,7 @@ package yummy_dvice.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,6 +64,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
             String name = intent.getStringExtra("name");
             String title = "Restaurants named like " + name;
             binding.textViewType.setText(title);
+            binding.textViewType.setTypeface(binding.textViewType.getTypeface(), Typeface.BOLD_ITALIC);
             setReqFromName(name);
         }
 
@@ -71,6 +73,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
             String name = intent.getStringExtra("filters");
             String title = "Restaurants from " + name + " categories";
             binding.textViewType.setText(title);
+            binding.textViewType.setTypeface(binding.textViewType.getTypeface(), Typeface.BOLD_ITALIC);
             setReqFromCategories(name);
         }
     }
@@ -111,7 +114,9 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
                                         (float) line.getDouble("stars"),
-                                        line.getString("image_id")
+                                        line.getString("image_id"),
+                                        line.getInt("price"),
+                                        line.getString("categories")
                                 );
 
                                 restos.add(r);
@@ -222,7 +227,9 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
                                         (float) line.getDouble("stars"),
-                                        line.getString("image_id")
+                                        line.getString("image_id"),
+                                        line.getInt("price"),
+                                        line.getString("categories")
                                 );
 
                                 restos.add(r);

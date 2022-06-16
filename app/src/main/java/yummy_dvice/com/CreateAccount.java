@@ -3,11 +3,15 @@ package yummy_dvice.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +39,12 @@ public class CreateAccount extends AppCompatActivity {
     TextView email;
     TextView pseudo;
     FloatingActionButton submit;
+    ListView list;
+    LinearLayout filters;
+    Button search;
+    ArrayList<String> word;
+    String restaurantName;
+    FloatingActionButton retButton;
 
 
     @Override
@@ -47,6 +57,7 @@ public class CreateAccount extends AppCompatActivity {
         email = findViewById(R.id.username);
         pseudo = findViewById(R.id.name);
         submit = findViewById(R.id.login2);
+        word = new ArrayList<>();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +109,58 @@ public class CreateAccount extends AppCompatActivity {
 
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringreq);
 
+            }
+        });
+
+        list = findViewById(R.id.listView);
+        filters = findViewById(R.id.linearLayout);
+        search = findViewById(R.id.buttonSearch);
+
+        TextView txt = new TextView(getApplicationContext());
+        txt.setText("OPTIONNAL : Choose 3 favorites categories");
+        txt.setTypeface(Typeface.DEFAULT_BOLD);
+        txt.setTextSize(17);
+        filters.addView(txt);
+
+        ArrayList<Category> cats = new ArrayList<>();
+
+        Category burger = new Category("Romantic", "15");
+        Category pizza = new Category("Intimate", "17");
+
+        cats.add(burger);
+        cats.add(pizza);
+
+        SearchView sv = findViewById(R.id.searchView2);
+
+        CustomAdapter adapter = new CustomAdapter(getApplicationContext(), cats, filters, word, txt, sv);
+
+        list.setTextFilterEnabled(true);
+        list.setAdapter(adapter);
+
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+
+                restaurantName = s;
+
+                //Toast.makeText(getApplicationContext(), restaurantName, Toast.LENGTH_SHORT).show();
+
+                if (s.isEmpty()){
+
+                    list.clearTextFilter();
+                    return false;
+                }
+
+                list.setFilterText(s);
+                return false;
             }
         });
 

@@ -100,6 +100,8 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
         binding.idNom.setText(r.name);
         binding.address.setText(String.valueOf(r.address));
         binding.city.setText(String.valueOf(r.city));
+        binding.price.setText("Price \n"+String.valueOf(r.price));
+        binding.categories.setText(String.valueOf(r.categories));
 
         // Request to get review info
 

@@ -147,7 +147,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                             line.getDouble("latitude"),
                                                             line.getDouble("longitude"),
                                                             (float) line.getDouble("stars"),
-                                                            line.getString("image_id")
+                                                            line.getString("image_id"),
+                                                            line.getInt("price"),
+                                                            line.getString("categories")
                                                     );
 
                                                     restos.add(r);

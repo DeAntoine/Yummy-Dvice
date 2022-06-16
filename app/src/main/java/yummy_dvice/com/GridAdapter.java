@@ -70,14 +70,14 @@ public class GridAdapter extends BaseAdapter {
             Log.d("imagess", addr + url);
 
             // .resize(100, 100)
-            Picasso.get().load(addr + url).into(imageView);
+            Picasso.get().load(addr + url).transform(new RoundedCornersTransformation(15, 15)).fit().into(imageView);
         }
 
         else{
 
             String addr = "http://93.12.245.177:8000/image?img=random"+String.valueOf(1)+".jpg";
 
-            Picasso.get().load(addr).resize(100, 100).into(imageView);
+            Picasso.get().load(addr).transform(new RoundedCornersTransformation(15, 15)).fit().into(imageView);
         }
 
 

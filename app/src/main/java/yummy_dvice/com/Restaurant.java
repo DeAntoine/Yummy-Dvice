@@ -15,9 +15,11 @@ public class Restaurant implements Serializable {
     Double latitude;
     Double longitude;
     String image_id;
+    String categories;
+    int price;
     float stars;
 
-    public Restaurant(String business_id, String name, String address, String city, String state, String postal_code, Double latitude, Double longitude, float stars, String image_id){
+    public Restaurant(String business_id, String name, String address, String city, String state, String postal_code, Double latitude, Double longitude, float stars, String image_id, int price, String categories){
 
         this.business_id = business_id;
         this.name = name;
@@ -29,5 +31,7 @@ public class Restaurant implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.image_id = image_id;
+        this.price = price;
+        this.categories = categories;
     }
 }

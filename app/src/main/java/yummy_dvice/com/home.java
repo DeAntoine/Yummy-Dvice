@@ -73,6 +73,7 @@ public class home extends AppCompatActivity {
 
     HomeBinding binding;
 
+
     Button but;
     ArrayList<String> filters;
     User u;
@@ -189,7 +190,9 @@ public class home extends AppCompatActivity {
                                                             line.getDouble("latitude"),
                                                             line.getDouble("longitude"),
                                                             (float) line.getDouble("stars"),
-                                                            line.getString("image_id")
+                                                            line.getString("image_id"),
+                                                            line.getInt("price"),
+                                                            line.getString("categories")
                                                     );
 
                                                     restos.add(r);
@@ -317,7 +320,9 @@ public class home extends AppCompatActivity {
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
                                         (float) line.getDouble("stars"),
-                                        line.getString("image_id")
+                                        line.getString("image_id"),
+                                        line.getInt("price"),
+                                        line.getString("categories")
                                 );
 
                                 restos.add(r);
@@ -395,7 +400,7 @@ public class home extends AppCompatActivity {
             }
         });
 
-        String[] cities = new String[]{"New-York", "Paris", "Bali"};
+        String[] cities = new String[]{"Paris", "Bali", "Avon", "Franklin"};
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cities);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinners[1].setAdapter(adapter);
