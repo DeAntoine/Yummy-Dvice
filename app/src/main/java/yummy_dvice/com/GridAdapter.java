@@ -1,6 +1,7 @@
 package yummy_dvice.com;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class GridAdapter extends BaseAdapter {
         ImageView imageView = convertView.findViewById(R.id.grid_image);
         TextView textView = convertView.findViewById(R.id.item_name);
         TextView stars = convertView.findViewById(R.id.item_stars);
+        TextView categories = convertView.findViewById(R.id.categories);
 
         String image_id = restos.get(position).image_id;
 
@@ -80,12 +82,20 @@ public class GridAdapter extends BaseAdapter {
             Picasso.get().load(addr).transform(new RoundedCornersTransformation(15, 15)).fit().into(imageView);
         }
 
+        String[] cats = restos.get(position).categories.split(";");
+        String cat = "";
+        for(String s : cats){
+
+            cat = cat + s + " - ";
+        }
 
 
         //imageView.setImageResource(image[position]);
         //textView.setText(flowerName[position]);
         textView.setText(restos.get(position).name);
         stars.setText(String.valueOf(restos.get(position).stars));
+        categories.setText(cat.substring(0, cat.length()-2));
+        categories.setTypeface(Typeface.DEFAULT_BOLD);
 
         return convertView;
     }

@@ -19,14 +19,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class LoginActivity extends AppCompatActivity {
 
     EditText passwordEditText;
+    FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,14 +42,27 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-
+        DBHandler cb = new DBHandler(getApplicationContext());
 
         EditText usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        usernameEditText.setText("hugo.ducly@gmail.com");
+        usernameEditText.setText("antoine.delacoux@gmail.com");
         passwordEditText.setText("azertyuiop");
         final Button loginButton = findViewById(R.id.login);
         final Button signUpButton = findViewById(R.id.signup);
+        fab = findViewById(R.id.withoutProfile);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), home.class);
+
+                DBHandler.getInstance(getApplicationContext()).deleteUser();
+
+                startActivity(intent);
+            }
+        });
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             msg =  "ok";
 
             Intent intent = new Intent(getApplicationContext(), home.class);
-            intent.putExtra("user", new User("Hugo", "Hugo", 4, "aze"));
+            intent.putExtra("user", new User("Hugo", "Hugo", 4, "aze", "French,Indian"));
             startActivity(intent);
         }
 
@@ -141,12 +155,15 @@ public class LoginActivity extends AppCompatActivity {
                                             line.getString("user_id"),
                                             line.getString("name"),
                                             Integer.parseInt(line.getString("review_count")),
-                                            line.getString("id_new")
+                                            line.getString("id_new"),
+                                            line.getString("favorite_categories")
                                     );
+
+                                    DBHandler.getInstance(getApplicationContext()).addUser(u);
 
                                     Intent intent = new Intent(getApplicationContext(), home.class);
 
-                                    intent.putExtra("user", u);
+                                    //intent.putExtra("user", u);
 
                                     startActivity(intent);
 

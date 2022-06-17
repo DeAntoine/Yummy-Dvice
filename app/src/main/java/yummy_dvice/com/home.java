@@ -49,6 +49,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -63,7 +64,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import yummy_dvice.com.databinding.HomeBinding;
 
@@ -93,7 +100,7 @@ public class home extends AppCompatActivity {
         ActivityCompat.requestPermissions(home.this,new String[]{ Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(home.this,new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
 
-        Intent user = getIntent();
+        /*Intent user = getIntent();
         if(user.hasExtra("user")){
 
             u = (User)user.getSerializableExtra("user");
@@ -102,7 +109,9 @@ public class home extends AppCompatActivity {
         } else {
 
             u = null;
-        }
+        }*/
+
+        u = DBHandler.getInstance(getApplicationContext()).getUser();
 
         filters = new ArrayList<>();
 
@@ -116,9 +125,29 @@ public class home extends AppCompatActivity {
 
         getLocation();
 
-        addNewDefile("Lebanese,French");
+        if(u != null && u.id_new.equals("50854")){
 
-        //addNewDefile("HasTV");
+            addNewDefile("Indian,French", "or", "french");
+
+            addNewDefile("Indian,French", "or", "indian");
+        }
+
+        else {
+
+            // get fav categories
+            if (u != null){
+
+                String fav = u.favorites;
+                String[] favs = fav.split(",");
+                for (String s : favs){
+
+                    addNewDefile(s, "or", "indian");
+                }
+            }
+        }
+
+        // tendances
+        addTendance();
 
         // spinners
         addSpinners();
@@ -132,6 +161,7 @@ public class home extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         navBar.setSelectedItemId(R.id.action_android);
+
     }
 
     void getLocation(){
@@ -286,10 +316,23 @@ public class home extends AppCompatActivity {
 
     }
 
-    void addNewDefile(String cat){
+    void addNewDefile(String cat, String type, String modele){
 
+        // usr_2_french
+
+        String url = "";
         // get the restaurants with the filter
-        String url = Reqs.getCategories + cat;
+        if (type.equals("or"))
+            url = Reqs.getCategoriesOr + cat;
+        else
+            url = Reqs.getCategories + cat;
+
+        u = DBHandler.getInstance(getApplicationContext()).getUser();
+
+        if (u != null && u.review_count > 5){
+
+            url = url + ",usr_"+String.valueOf(u.id_new)+"_"+modele;
+        }
 
         Log.d("requete", url);
 
@@ -378,7 +421,7 @@ public class home extends AppCompatActivity {
 
         Spinner spinners[] = {binding.spinnerGauche, binding.spinnerMilieu, binding.spinnerDroit};
 
-        String[] items = new String[]{"Cheap", "Middle", "Expansive"};
+        String[] items = new String[]{"Cheap", "Moderate", "Pricey"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinners[0].setAdapter(adapter);
@@ -442,26 +485,86 @@ public class home extends AppCompatActivity {
 
                 if (id == R.id.action_logo) {
 
-                    Intent home = new Intent(getApplicationContext(), Profile.class);
-                    home.putExtra("user", u);
-                    //startActivity(home);
+                    if(u != null){
 
-                    startActivityForResult(home, 1);
-                    overridePendingTransition(0, 0);
+                        Intent home = new Intent(getApplicationContext(), Profile.class);
+                        home.putExtra("user", u);
+                        //startActivity(home);
+
+                        startActivityForResult(home, 1);
+                        overridePendingTransition(0, 0);
+
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), "Please connect or create a profile", Toast.LENGTH_SHORT).show();
+                    }
+
+
 
                 } else if (id == R.id.action_maps) {
 
                     Intent home = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(home);
+                    startActivityForResult(home, 1);
 
                 } else if (id == R.id.action_search) {
 
                     Intent intent = new Intent(getApplicationContext(), searchActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
                 return true;
             }
         });
+
+        if (u == null)
+            navBar.getMenu().findItem(R.id.action_logo).setEnabled(false);
+    }
+
+    void addTendance(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
+
+        String url = Reqs.getTendance.replace("?d", currentDateandTime);
+
+        Log.d("requeteee", url);
+
+        StringRequest stringreq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String rep) {
+
+                if (rep.length() > 0){
+
+                    // [Alcohol, Tapas/Small Plates], [Alcohol, Upscale], [Classy, Upscale], [Alcohol, American (New), Breakfast & Brunch, Classy]
+                    String[] cats = rep.split(";");
+
+                    for (String s : cats){
+
+                        String[] cates = s.split(", ");
+
+                        for (String e : cates){
+
+                            e = e.replace("/","")
+                                    .replace(" ", "_");
+
+                            addNewDefile(e, "or", "indian");
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO: Handle error
+
+                Log.d("requete", error.toString());
+                Toast.makeText(getApplicationContext(), "Failed to get tendance", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringreq);
     }
 
 }

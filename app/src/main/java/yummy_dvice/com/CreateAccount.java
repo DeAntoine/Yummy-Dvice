@@ -45,6 +45,7 @@ public class CreateAccount extends AppCompatActivity {
     ArrayList<String> word;
     String restaurantName;
     FloatingActionButton retButton;
+    String topCategories;
 
 
     @Override
@@ -58,6 +59,7 @@ public class CreateAccount extends AppCompatActivity {
         pseudo = findViewById(R.id.name);
         submit = findViewById(R.id.login2);
         word = new ArrayList<>();
+        topCategories = "";
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +77,21 @@ public class CreateAccount extends AppCompatActivity {
                     return;
                 }
 
+                for (String s : word) {
+
+                    topCategories += s + ",";
+                }
+
+                topCategories = topCategories.substring(0, topCategories.length()-1);
+
+                Toast.makeText(getApplicationContext(), topCategories, Toast.LENGTH_LONG);
+
+
+
+
                 //(user_id, name, password, identifiant, id_new, review_count, average_stars)
 
-                String url = Reqs.addUser + "'" + pseudo.getText().toString() + "'"  + ",'"  + password.getText().toString() + "','" + email.getText().toString() + "'";
+                String url = Reqs.addUser + "'" + pseudo.getText().toString() + "'"  + ",'"  + password.getText().toString() + "','" + email.getText().toString() + "'," + topCategories+"'";
 
                 Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
                 Log.d("requete", url);
@@ -87,10 +101,14 @@ public class CreateAccount extends AppCompatActivity {
                     @Override
                     public void onResponse(String rep) {
 
-                        if (rep.equals("ok")){
+                        if (rep.length() > 0){
+
+                            User u = new User(rep, pseudo.getText().toString(), 0, rep, topCategories);
+
+                            DBHandler.getInstance(getApplicationContext()).addUser(u);
 
                             Intent intent = new Intent(getApplicationContext(), home.class);
-                            intent.putExtra("user", new User("Hugo", "Hugo", 4, "aze"));
+                            //intent.putExtra("user", u);
                             startActivity(intent);
                             finish();
                         }

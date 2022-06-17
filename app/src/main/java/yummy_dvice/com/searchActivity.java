@@ -34,7 +34,6 @@ public class searchActivity extends AppCompatActivity {
     String restaurantName;
     FloatingActionButton retButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +124,7 @@ public class searchActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), DisplayGridRestaurant.class);
                     intent.putExtra("filters", fil);
                     startActivity(intent);
+
                 } else {
 
                     if (restaurantName.length() > 0){

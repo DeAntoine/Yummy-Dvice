@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +25,20 @@ public class
 OneRestaurantDisplayActivity extends AppCompatActivity {
 
     ActivityDisplayRestaurantBinding binding;
+
     User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         binding = ActivityDisplayRestaurantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -46,6 +55,13 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
             u = null;
             binding.buttonLeaveReview.setVisibility(View.INVISIBLE);
         }
+
+        binding.returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         binding.buttonLeaveReview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +83,8 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("r", r);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -86,7 +102,7 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
 
             Log.d("imagess", addr + url);
 
-            Picasso.get().load(addr + url).resize(100, 100).into(binding.imageView);
+            Picasso.get().load(addr + url).transform(new RoundedCornersTransformation(15, 15)).fit().into(binding.imageView);
         }
 
         else{
@@ -100,8 +116,15 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
         binding.idNom.setText(r.name);
         binding.address.setText(String.valueOf(r.address));
         binding.city.setText(String.valueOf(r.city));
-        binding.price.setText("Price \n"+String.valueOf(r.price));
-        binding.categories.setText(String.valueOf(r.categories));
+
+        String price = "";
+        for (int i=0; i<r.price; i++){
+
+            price += "$";
+        }
+
+        binding.price.setText(price);
+        binding.categories.setText(String.valueOf(r.categories).substring(0, r.categories.length()-1).replace(";", " - "));
 
         // Request to get review info
 

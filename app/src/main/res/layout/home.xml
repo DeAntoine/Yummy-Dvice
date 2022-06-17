@@ -63,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/spinnerDroit"
         app:layout_constraintStart_toEndOf="@+id/spinnerGauche"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,12 +74,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="130dp"
+        android:textAlignment="center"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerDroit"
+        android:textAlignment="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"

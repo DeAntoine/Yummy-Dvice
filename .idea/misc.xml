@@ -6,15 +6,15 @@
         <entry key="app/src/main/res/drawable/button_round.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_display_grid_restaurant.xml" value="0.1490036231884058" />
-        <entry key="app/src/main/res/layout/activity_display_restaurant.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_display_restaurant.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_leave_review.xml" value="0.1766304347826087" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17980072463768115" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.18070652173913043" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_review.xml" value="0.2659279778393352" />
         <entry key="app/src/main/res/layout/activity_review2.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_search.xml" value="0.15807560137457044" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.45" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.1766304347826087" />
         <entry key="app/src/main/res/layout/activity_sign_in_page2.xml" value="0.16077898550724637" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.335" />

@@ -84,6 +84,10 @@ public class Leave_review extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.putExtra("r", r);
                             setResult(Activity.RESULT_OK, intent);
+
+                            DBHandler.getInstance(getApplicationContext()).updateUser(u.user_id, u.review_count+1);
+
+
                             finish();
                         }
                     }
