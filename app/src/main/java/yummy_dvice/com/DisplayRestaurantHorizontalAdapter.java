@@ -27,11 +27,13 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
 
     Context context;
     ArrayList<Restaurant> restos;
+    User u;
     LayoutInflater inflater;
 
-    public DisplayRestaurantHorizontalAdapter(Context context, ArrayList<Restaurant> restos) {
+    public DisplayRestaurantHorizontalAdapter(Context context, ArrayList<Restaurant> restos, User u) {
         this.context = context;
         this.restos = restos;
+        this.u = u;
 
     }
 
@@ -75,7 +77,7 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
         }
         //url = "https://www.imedias.pro/wp-content/themes/bootstrap-basic4-child/images/cours/images_web/tux_png_24.png";
 
-        Picasso.get().load(url).resize(100, 100).into(holder.getImage());
+        Picasso.get().load(url).transform(new RoundedCornersTransformation(15, 15)).fit().into(holder.getImage());
 
 
         //holder.getImage().setImageResource(image[position]);
@@ -92,6 +94,10 @@ public class DisplayRestaurantHorizontalAdapter extends RecyclerView.Adapter<Dis
 
                 Intent restaurants = new Intent(context, OneRestaurantDisplayActivity.class);
                 restaurants.putExtra("r", restos.get(holder.getAdapterPosition()));
+                if (u != null){
+
+                    restaurants.putExtra("user", u);
+                }
                 restaurants.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(restaurants);
 

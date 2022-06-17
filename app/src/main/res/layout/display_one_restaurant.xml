@@ -37,9 +37,17 @@
             android:id="@+id/item_stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="Rose"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Rose"
+            android:textSize="13sp" />
 
     </LinearLayout>
 

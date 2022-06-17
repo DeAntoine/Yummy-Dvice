@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,25 +21,62 @@ import org.json.JSONObject;
 
 import yummy_dvice.com.databinding.ActivityDisplayRestaurantBinding;
 
-public class OneRestaurantDisplayActivity extends AppCompatActivity {
+public class
+OneRestaurantDisplayActivity extends AppCompatActivity {
 
     ActivityDisplayRestaurantBinding binding;
+
+    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
         binding = ActivityDisplayRestaurantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // get the intent
+        Intent intent = getIntent();
+        Restaurant r = (Restaurant) intent.getSerializableExtra("r");
+
+        /*if(intent.hasExtra("user")){
+
+            u = (User)intent.getSerializableExtra("user");
+        } else {
+
+            u = null;
+            binding.buttonLeaveReview.setVisibility(View.INVISIBLE);
+        }*/
+
+        u = DBHandler.getInstance(getApplicationContext()).getUser();
+
+        binding.returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         binding.buttonLeaveReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), Leave_review.class);
-                startActivity(intent);
-                finish();
+                intent.putExtra("r", r);
+
+                if(u != null)
+                    intent.putExtra("user", u);
+
+                startActivityForResult(intent, 1);
+
             }
         });
 
@@ -47,14 +85,12 @@ public class OneRestaurantDisplayActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("r", r);
                 startActivity(intent);
-                finish();
             }
         });
 
-        // get the intent
-        Intent intent = getIntent();
-        Restaurant r = (Restaurant) intent.getSerializableExtra("r");
+
 
         String image_id = r.image_id;
 
@@ -68,7 +104,7 @@ public class OneRestaurantDisplayActivity extends AppCompatActivity {
 
             Log.d("imagess", addr + url);
 
-            Picasso.get().load(addr + url).resize(100, 100).into(binding.imageView);
+            Picasso.get().load(addr + url).transform(new RoundedCornersTransformation(15, 15)).fit().into(binding.imageView);
         }
 
         else{
@@ -82,6 +118,15 @@ public class OneRestaurantDisplayActivity extends AppCompatActivity {
         binding.idNom.setText(r.name);
         binding.address.setText(String.valueOf(r.address));
         binding.city.setText(String.valueOf(r.city));
+
+        String price = "";
+        for (int i=0; i<r.price; i++){
+
+            price += "$";
+        }
+
+        binding.price.setText(price);
+        binding.categories.setText(String.valueOf(r.categories).substring(0, r.categories.length()-1).replace(";", " - "));
 
         // Request to get review info
 
@@ -145,6 +190,81 @@ public class OneRestaurantDisplayActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(data == null){
+
+            //Toast.makeText(getApplicationContext(),String.valueOf(resultCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"data null", Toast.LENGTH_LONG).show();
+
+        } else {
+
+
+            Restaurant r = (Restaurant) data.getSerializableExtra("r");
+
+            String url = Reqs.getReviewsBusiness + r.business_id;
+
+            Log.d("reviewsss", url);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            int len = response.length();
+
+                            String names[] = new String[len];
+                            String texts[] = new String[len];
+                            float stars[] = new float[len];
+
+                            Log.d("reviewssss", "results here with " + String.valueOf(len));
+
+                            for (int i = 0; i < len; i++) {
+
+                                JSONObject line = null;
+                                try {
+
+                                    line = response.getJSONObject(String.valueOf(i));
+                                    texts[i] = line.getString("text");
+                                    names[i] = line.getString("name");
+                                    stars[i] = (float) line.getDouble("stars");
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            //String[] names = {"Rose","Lotus","Lily","Jasmine", "Tulip"};
+                            //String[] reviews = {"Rose zeferfr","Lotus zefzrf","Lily faerfe","Jasmine fefzefze", "Tulip zfzefef"};
+                            int[] images = {R.drawable.baseline_person_black_36, R.drawable.baseline_person_black_36, R.drawable.baseline_person_black_36, R.drawable.baseline_person_black_36, R.drawable.baseline_person_black_36};
+                            //int[] stars = {1, 2, 3, 4, 5};
+
+                            ReviewAdapter gridAdapter = new ReviewAdapter(OneRestaurantDisplayActivity.this, names, images, texts, stars);
+                            binding.reviewGrid.setAdapter(gridAdapter);
+
+                            Log.d("reviewssss", "binding here");
+                            //Toast.makeText(getApplicationContext(), "Datas reloaded", Toast.LENGTH_LONG).show();
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // TODO: Handle error
+
+                            Log.d("requete", error.toString());
+                            Toast.makeText(getApplicationContext(), "Failed to fetch datas, try again later", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
+        }
+
+    }
 
 }

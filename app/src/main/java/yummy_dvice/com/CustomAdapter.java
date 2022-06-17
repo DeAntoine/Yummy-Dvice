@@ -46,7 +46,7 @@ public class CustomAdapter extends ArrayAdapter<Category> {
         TextView tvHome = (TextView) convertView.findViewById(R.id.number);
         // Populate the data into the template view using the data object
         tvName.setText(cat.name);
-        tvHome.setText(cat.number);
+        //tvHome.setText(cat.number);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

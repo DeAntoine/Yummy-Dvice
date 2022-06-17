@@ -12,20 +12,22 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        map:layout_constraintBottom_toTopOf="@+id/bottom_nav_map"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         tools:context=".MapsActivity" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav_map"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/returnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="65dp"
+        android:src="@drawable/right_arrow"
+        app:backgroundTint="#E6DFDF"
+        app:fabSize="auto"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

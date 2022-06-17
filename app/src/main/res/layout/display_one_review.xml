@@ -4,13 +4,13 @@
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:gravity="center">
+    android:layout_gravity="left"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/user_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:scaleType="centerCrop" />
 
 
@@ -26,7 +26,7 @@
             android:layout_marginTop="6dp"
             android:text="Rose"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/stars"
@@ -35,7 +35,7 @@
             android:layout_marginTop="6dp"
             android:text="Rose"
             android:layout_marginLeft="10dp"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
 
 

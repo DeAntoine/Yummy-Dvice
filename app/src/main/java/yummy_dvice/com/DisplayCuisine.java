@@ -36,13 +36,15 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
     Context context;
     String[] flowerName;
     int[] image;
+    User u;
 
     LayoutInflater inflater;
 
-    public DisplayCuisine(Context context, String[] flowerName, int[] image) {
+    public DisplayCuisine(Context context, String[] flowerName, int[] image, User u) {
         this.context = context;
         this.flowerName = flowerName;
         this.image = image;
+        this.u = u;
     }
 
     @Override
@@ -50,8 +52,6 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
         View inflate = LayoutInflater.from(context).inflate(R.layout.display_one_cuisine_type, null);
         MyViewHolder holder = new MyViewHolder(inflate);
-
-
         return holder;
     }
 
@@ -67,6 +67,10 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
                 Intent intent = new Intent(context, DisplayGridRestaurant.class);
                 intent.putExtra("filters", flowerName[holder.getAdapterPosition()]);
+                /*if(u != null){
+
+                    intent.putExtra("user", u);
+                }*/
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 /*

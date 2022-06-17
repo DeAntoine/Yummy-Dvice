@@ -3,6 +3,7 @@ package yummy_dvice.com;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,8 @@ import yummy_dvice.com.databinding.ActivityDisplayGridRestaurantBinding;
 public class DisplayGridRestaurant extends AppCompatActivity {
 
     ActivityDisplayGridRestaurantBinding binding;
+    FloatingActionButton fab;
+    User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +35,38 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
         binding = ActivityDisplayGridRestaurantBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        binding.returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         Log.d("requete", "hheeeerrrre");
 
         Intent intent = getIntent();
+
+        u = null;
+
+        u = DBHandler.getInstance(getApplicationContext()).getUser();
+
+        /*if(intent.hasExtra("user")) {
+
+            u = (User)intent.getSerializableExtra("user");
+
+        }*/
 
         if(intent.hasExtra("name")) {
 
             String name = intent.getStringExtra("name");
             String title = "Restaurants named like " + name;
             binding.textViewType.setText(title);
+            binding.textViewType.setTypeface(binding.textViewType.getTypeface(), Typeface.BOLD_ITALIC);
             setReqFromName(name);
         }
 
@@ -48,6 +75,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
             String name = intent.getStringExtra("filters");
             String title = "Restaurants from " + name + " categories";
             binding.textViewType.setText(title);
+            binding.textViewType.setTypeface(binding.textViewType.getTypeface(), Typeface.BOLD_ITALIC);
             setReqFromCategories(name);
         }
     }
@@ -88,7 +116,9 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
                                         (float) line.getDouble("stars"),
-                                        line.getString("image_id")
+                                        line.getString("image_id"),
+                                        line.getInt("price"),
+                                        line.getString("categories")
                                 );
 
                                 restos.add(r);
@@ -137,6 +167,10 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                                 Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
+                                if(u != null){
+
+                                    restaurants.putExtra("user", u);
+                                }
                                 startActivity(restaurants);
                             }
                         });
@@ -195,7 +229,9 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                                         line.getDouble("latitude"),
                                         line.getDouble("longitude"),
                                         (float) line.getDouble("stars"),
-                                        line.getString("image_id")
+                                        line.getString("image_id"),
+                                        line.getInt("price"),
+                                        line.getString("categories")
                                 );
 
                                 restos.add(r);
@@ -212,7 +248,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                         if(restos.size() == 0)
                             onBackPressed();
 
-                        int size = flowerName.length;
+                        int size = restos.size();
 
                         String[] restaurantsName = new String[size];
                         for (int i = 0; i < size; i++) {
@@ -237,6 +273,10 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                                 Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
+                                /*if(u != null){
+
+                                    restaurants.putExtra("user", u);
+                                }*/
                                 startActivity(restaurants);
                             }
                         });
