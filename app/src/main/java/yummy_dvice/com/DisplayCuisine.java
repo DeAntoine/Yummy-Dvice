@@ -67,10 +67,10 @@ public class DisplayCuisine extends RecyclerView.Adapter<DisplayCuisine.MyViewHo
 
                 Intent intent = new Intent(context, DisplayGridRestaurant.class);
                 intent.putExtra("filters", flowerName[holder.getAdapterPosition()]);
-                if(u != null){
+                /*if(u != null){
 
                     intent.putExtra("user", u);
-                }
+                }*/
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 /*

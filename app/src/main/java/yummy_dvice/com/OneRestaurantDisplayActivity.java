@@ -47,14 +47,16 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Restaurant r = (Restaurant) intent.getSerializableExtra("r");
 
-        if(intent.hasExtra("user")){
+        /*if(intent.hasExtra("user")){
 
             u = (User)intent.getSerializableExtra("user");
         } else {
 
             u = null;
             binding.buttonLeaveReview.setVisibility(View.INVISIBLE);
-        }
+        }*/
+
+        u = DBHandler.getInstance(getApplicationContext()).getUser();
 
         binding.returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,8 +196,8 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
 
         if(data == null){
 
-            Toast.makeText(getApplicationContext(),String.valueOf(resultCode), Toast.LENGTH_LONG).show();
-            //Toast.makeText(getApplicationContext(),"data null", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),String.valueOf(resultCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"data null", Toast.LENGTH_LONG).show();
 
         } else {
 
@@ -245,7 +247,7 @@ OneRestaurantDisplayActivity extends AppCompatActivity {
                             binding.reviewGrid.setAdapter(gridAdapter);
 
                             Log.d("reviewssss", "binding here");
-                            Toast.makeText(getApplicationContext(), "Datas reloaded", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Datas reloaded", Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
 

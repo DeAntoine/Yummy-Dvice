@@ -53,11 +53,13 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
         u = null;
 
-        if(intent.hasExtra("user")) {
+        u = DBHandler.getInstance(getApplicationContext()).getUser();
+
+        /*if(intent.hasExtra("user")) {
 
             u = (User)intent.getSerializableExtra("user");
 
-        }
+        }*/
 
         if(intent.hasExtra("name")) {
 
@@ -246,7 +248,7 @@ public class DisplayGridRestaurant extends AppCompatActivity {
                         if(restos.size() == 0)
                             onBackPressed();
 
-                        int size = flowerName.length;
+                        int size = restos.size();
 
                         String[] restaurantsName = new String[size];
                         for (int i = 0; i < size; i++) {
@@ -271,10 +273,10 @@ public class DisplayGridRestaurant extends AppCompatActivity {
 
                                 Intent restaurants = new Intent(getApplicationContext(), OneRestaurantDisplayActivity.class);
                                 restaurants.putExtra("r", restos.get(position));
-                                if(u != null){
+                                /*if(u != null){
 
                                     restaurants.putExtra("user", u);
-                                }
+                                }*/
                                 startActivity(restaurants);
                             }
                         });

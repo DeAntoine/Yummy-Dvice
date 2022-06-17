@@ -79,14 +79,14 @@ import yummy_dvice.com.databinding.HomeBinding;
 public class home extends AppCompatActivity {
 
     HomeBinding binding;
-
-
     Button but;
     ArrayList<String> filters;
     User u;
     BottomNavigationView navBar;
     Double latitude;
     Double longitude;
+    String date;
+
 
 
     @Override
@@ -100,16 +100,18 @@ public class home extends AppCompatActivity {
         ActivityCompat.requestPermissions(home.this,new String[]{ Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(home.this,new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
 
-        /*Intent user = getIntent();
-        if(user.hasExtra("user")){
+        Intent user = getIntent();
+        if(user.hasExtra("date")){
 
-            u = (User)user.getSerializableExtra("user");
+            //u = (User)user.getSerializableExtra("user");
+            date = user.getStringExtra("date");
+
 
             //Toast.makeText(getApplicationContext(), u.name, Toast.LENGTH_SHORT).show();
         } else {
 
-            u = null;
-        }*/
+            date = "06_17_2022";
+        }
 
         u = DBHandler.getInstance(getApplicationContext()).getUser();
 
@@ -127,9 +129,9 @@ public class home extends AppCompatActivity {
 
         if(u != null && u.id_new.equals("50854")){
 
-            addNewDefile("Indian,French", "or", "french");
+            addNewDefile("Indian,French", "or", "french", true);
 
-            addNewDefile("Indian,French", "or", "indian");
+            addNewDefile("Indian,French", "or", "indian", true);
         }
 
         else {
@@ -138,10 +140,18 @@ public class home extends AppCompatActivity {
             if (u != null){
 
                 String fav = u.favorites;
-                String[] favs = fav.split(",");
+                Log.d("food", fav);
+                String[] favs = fav.split(", ");
                 for (String s : favs){
 
-                    addNewDefile(s, "or", "indian");
+                    Log.d("food", s);
+
+                    s = s.replace(" ", "_")
+                            .replace("&", "")
+                            .replace("(", "")
+                            .replace(")", "");
+
+                    addNewDefile(s, "and", "indian", false);
                 }
             }
         }
@@ -161,6 +171,10 @@ public class home extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         navBar.setSelectedItemId(R.id.action_android);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
     }
 
@@ -283,13 +297,11 @@ public class home extends AppCompatActivity {
                 "Indian", "Latin American","Vietnamese","Thai", "Barbeque", "Asian Fusion","Japanese", "Italian", "Chinese","Mexican",
                 "American (New)", "American (Traditional)"};
 
-
-
         int[] images = {R.drawable.lebanese,R.drawable.brazilian,R.drawable.cuban,R.drawable.african,R.drawable.irish,
-                R.drawable.hawaiien,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,
-                R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,
-                R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec,
-                R.drawable.grec,R.drawable.grec, R.drawable.grec,R.drawable.grec,R.drawable.grec,R.drawable.grec};
+                R.drawable.hawaiien,R.drawable.pakistani,R.drawable.taiwanese,R.drawable.spanish,R.drawable.cajun_creole, R.drawable.french,
+                R.drawable.ramen,R.drawable.canadian,R.drawable.halal,R.drawable.greek, R.drawable.caribbean,R.drawable.korean,
+                R.drawable.indian,R.drawable.latinamerica,R.drawable.vietnamese,R.drawable.thai,R.drawable.barbeque,R.drawable.asianfusion,
+                R.drawable.japanese,R.drawable.italian, R.drawable.chinese,R.drawable.mexican,R.drawable.american_new,R.drawable.traditionnalamerican};
 
         TextView txt = new TextView(getApplicationContext());
         txt.setText("Cuisine types");
@@ -316,7 +328,7 @@ public class home extends AppCompatActivity {
 
     }
 
-    void addNewDefile(String cat, String type, String modele){
+    void addNewDefile(String cat, String type, String modele, Boolean m){
 
         // usr_2_french
 
@@ -377,8 +389,13 @@ public class home extends AppCompatActivity {
                         TextView txt = new TextView(getApplicationContext());
                         if(cat.equals("HasTV")){
                             txt.setText("Pour ne pas louper un seul match");
-                        }else
-                            txt.setText(cat);
+                        }else{
+                            if (m)
+                                txt.setText(cat+" - "+modele);
+                            else
+                                txt.setText(cat.replace("_", " "));
+                        }
+
                         txt.setTextSize(20);
                         txt.setPadding(15, 15, 15, 15);
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -521,10 +538,10 @@ public class home extends AppCompatActivity {
 
     void addTendance(){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
-        String currentDateandTime = sdf.format(new Date());
+        //SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_yyyy", Locale.getDefault());
+        //String currentDateandTime = sdf.format(new Date());
 
-        String url = Reqs.getTendance.replace("?d", currentDateandTime);
+        String url = Reqs.getTendance.replace("?d", date);
 
         Log.d("requeteee", url);
 
@@ -533,22 +550,30 @@ public class home extends AppCompatActivity {
             @Override
             public void onResponse(String rep) {
 
+
+
                 if (rep.length() > 0){
 
                     // [Alcohol, Tapas/Small Plates], [Alcohol, Upscale], [Classy, Upscale], [Alcohol, American (New), Breakfast & Brunch, Classy]
-                    String[] cats = rep.split(";");
+                    String[] cats = rep.split("; ");
+
+                    Log.d("requeteee", String.valueOf(cats.length));
 
                     for (String s : cats){
 
                         String[] cates = s.split(", ");
+
+                        String liste = "";
 
                         for (String e : cates){
 
                             e = e.replace("/","")
                                     .replace(" ", "_");
 
-                            addNewDefile(e, "or", "indian");
+                            liste += e + ",";
                         }
+
+                        addNewDefile(liste.substring(0, liste.length()-1), "and", "indian", false);
                     }
                 }
             }

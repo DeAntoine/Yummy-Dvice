@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +29,17 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         setContentView(R.layout.activity_profile);
+
+        TextView tv = findViewById(R.id.textView);
+        tv.setTypeface(Typeface.DEFAULT_BOLD);
 
         Intent intent = getIntent();
 
@@ -55,7 +63,7 @@ public class Profile extends AppCompatActivity {
 
 
             if (u.favorites.length() > 5)
-                categories.setText(u.favorites);
+                categories.setText(u.favorites.replace(",", "\n"));
             else
                 categories.setText("/");
             fab = findViewById(R.id.returnButton);

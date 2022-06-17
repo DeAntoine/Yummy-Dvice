@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText passwordEditText;
     FloatingActionButton fab;
+    EditText date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         setContentView(R.layout.activity_login);
+        date = findViewById(R.id.date);
 
         DBHandler cb = new DBHandler(getApplicationContext());
 
@@ -159,11 +161,12 @@ public class LoginActivity extends AppCompatActivity {
                                             line.getString("favorite_categories")
                                     );
 
+                                    DBHandler.getInstance(getApplicationContext()).deleteUser();
                                     DBHandler.getInstance(getApplicationContext()).addUser(u);
 
                                     Intent intent = new Intent(getApplicationContext(), home.class);
 
-                                    //intent.putExtra("user", u);
+                                    intent.putExtra("date", String.valueOf(date.getText()));
 
                                     startActivity(intent);
 

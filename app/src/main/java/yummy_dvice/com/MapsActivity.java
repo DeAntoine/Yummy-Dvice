@@ -132,7 +132,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             LatLng l = new LatLng(r.latitude, r.longitude);
             mMap.addMarker(new MarkerOptions().position(l).title(r.name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(r.latitude, r.longitude), 16));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(r.latitude, r.longitude), 10));
         }
 
         else
@@ -210,7 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                     Log.d("placeMap", r.name + "_" + l.toString());
                                                 }
 
-                                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(la, lo), 16));
+                                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(la, lo), 10));
 
                                             }
                                         }, new Response.ErrorListener() {
